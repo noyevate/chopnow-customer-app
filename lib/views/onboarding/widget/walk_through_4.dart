@@ -96,7 +96,7 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                   fontSize: 32.sp,
                   btnColor: Tcolor.White,
                   onTap: () {
-                    Get.off(() => const Location(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                    Get.offAll(() => const Location(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
                   },
                 ),
                 SizedBox(

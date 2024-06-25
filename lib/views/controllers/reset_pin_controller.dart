@@ -1,4 +1,4 @@
-import 'package:chopnow_new_customer_app/views/home/home.dart';
+import 'package:chopnow_new_customer_app/views/enty_point.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +50,7 @@ class ResetPinController extends GetxController {
     if (pin.value.length == 4) {
       // PIN is complete, handle the submission
       print("Submitted PIN: ${pin.value}");
-            Get.offAll(() => const HomeScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+            Get.offAll(() => MainScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
 
       // Perform your submission logic here, e.g., API call or navigation
     } else {

@@ -4,6 +4,7 @@ import 'package:chopnow_new_customer_app/views/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 
@@ -19,7 +20,7 @@ class _MainTabViewState extends State<MainTabView> {
 
   PageStorageBucket storageBucket = PageStorageBucket();
 
-  Widget selectPageView = const HomeScreen();
+  Widget selectPageView = const Hompage();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class _MainTabViewState extends State<MainTabView> {
           onPressed: () {
             if (selectedTab !=2){
               selectedTab = 2;
-              selectPageView = const HomeScreen();
+              selectPageView = const Hompage();
             } 
             if(mounted) {
               setState(() {});
@@ -45,7 +46,7 @@ class _MainTabViewState extends State<MainTabView> {
           },
           backgroundColor: selectedTab == 2 ? Tcolor.Primary : Tcolor.Secondary ,
           shape: const CircleBorder(),
-          child:  Icon(Icons.shopping_bag, size: 40.sp,),
+          child:  IconButton(onPressed: null, icon: SvgPicture.asset("assets/img/appbar_avatar.svg" ,)),
         
         ),
       ),
