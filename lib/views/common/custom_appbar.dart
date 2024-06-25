@@ -40,7 +40,7 @@ class CustomAppBar extends StatelessWidget {
                 children: [
                   
                   ReuseableText(
-                    title: "Good morning, Nathaniel",
+                    title: "${getTimeOfDay()}, Nathaniel",
                     style: TextStyle(
                       color: Tcolor.Text,
                       fontSize: 32.sp,
@@ -72,10 +72,10 @@ class CustomAppBar extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            getTimeOfDay(),
-            style: const TextStyle(fontSize: 35),
-          )
+          // Text(
+          //   getTimeOfDay(),
+          //   style: const TextStyle(fontSize: 35),
+          // )
         ],
       ),
     );
@@ -85,12 +85,16 @@ class CustomAppBar extends StatelessWidget {
     final now = DateTime.now();
     final hour = now.hour;
 
-    if (hour >= 7 && hour < 16) {
-      return '☀️'; // Between 7am and 4pm
-    } else if (hour >= 16 && hour < 19) {
-      return '⛅'; // Between 4pm and 7pm
-    } else {
-      return '🌙'; // Between 7pm and 7am
+    if (hour >= 7 && hour < 12) {
+      return 'Good morning'; // Between 7am and 4pm
+    } else if (hour >= 12 && hour < 16) {
+      return "Good afternoon"; // Between 4pm and 7pm
+    } else if (hour >= 16 && hour < 20) {
+      return 'Good evening'; // Between 7pm and 7am
+    } else if (hour >= 20 && hour < 5) {
+      return "Enjoy you night";
+    } else{
+      return "Hello";
     }
   }
 }
