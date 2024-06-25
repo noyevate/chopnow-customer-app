@@ -4,12 +4,13 @@ class ReuseableText extends StatelessWidget {
   final String title;
   final TextStyle style;
   final TextAlign? textAlign;
+  final TextOverflow? overflow;
 
   const ReuseableText({
     super.key,
     required this.title,
     required this.style,
-    this.textAlign
+    this.textAlign, this.overflow
   });
 
   @override
@@ -18,7 +19,7 @@ class ReuseableText extends StatelessWidget {
       title,
       style: style,
       textAlign: textAlign ?? TextAlign.left,
-      overflow: TextOverflow.fade,
+      overflow: overflow,
       softWrap: false,
     );
   }

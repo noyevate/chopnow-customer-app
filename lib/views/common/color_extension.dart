@@ -16,7 +16,7 @@ class Tcolor{
   static Color get Text_Secondary => const Color(0xff757C91);
   static Color get TEXT_White => const Color(0xffFCFCFC);
   static Color get TEXT_Body => const Color(0xff3C4253);
-  static Color get TEXT_Placeholder => Color.fromARGB(255, 20, 29, 58);
+  static Color get TEXT_Placeholder => const Color(0xffAAAEBB);
   static Color get TEXT_Label => const Color(0xff757C91);
 
 
