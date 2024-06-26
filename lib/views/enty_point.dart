@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           Positioned(
-            bottom: 25.sp, // Adjust the bottom margin to align with your bottom nav
+            bottom: 35.sp, // Adjust the bottom margin to align with your bottom nav
             left: 0,
             right: 0,
             child: Center(

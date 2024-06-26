@@ -33,7 +33,7 @@ class CustomBottomNav extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 0.5.w, vertical: 20.sp),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center, // Align items vertically
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildNavItem(
               context,
@@ -87,6 +87,7 @@ class CustomBottomNav extends StatelessWidget {
 
     bool isSelected = selectedIndex == index;
     Color itemColor = isSelected ? Tcolor.Primary : Tcolor.TEXT_Label;
+    Color dotColor = isSelected ? Tcolor.Primary : Tcolor.White;
 
     Widget iconWidget;
     if (iconPath != null && iconType != null) {
@@ -129,6 +130,16 @@ class CustomBottomNav extends StatelessWidget {
               fontSize: 24.sp,
               color: itemColor,
               fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 4),
+          // Dot indicator
+          Container(
+            width: 10.w,
+            height: 10.w,
+            decoration: BoxDecoration(
+              color: dotColor,
+              shape: BoxShape.circle,
             ),
           ),
         ],
