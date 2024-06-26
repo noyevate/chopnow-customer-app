@@ -22,12 +22,12 @@ class Hompage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 30.h,
-                    ),
+                    // SizedBox(
+                    //   height: 30.h,
+                    // ),
                     ReuseableText(title: "Morning starters", style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w600,color: Tcolor.Text)),
                     SizedBox(
-                      height: 30.h,
+                      height: 20.h,
                     ),
                     const CategoryList(),
                   ],
