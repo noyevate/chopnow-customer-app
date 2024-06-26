@@ -86,16 +86,17 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Metropolis
+    - family: HelveticaNowText
       fonts:
-        - asset: assets/font/Metropolis-Regular.otf
-        - asset: assets/font/Metropolis-Medium.otf
+        - asset: assets/font/HelveticaNowText-Regular.otf
+          # weight: 400
+        - asset: assets/font/HelveticaNowText-Medium.otf
           weight: 500
-        - asset: assets/font/Metropolis-SemiBold.otf
+        - asset: assets/font/HelveticaNowText-Black.otf
           weight: 600
-        - asset: assets/font/Metropolis-Bold.otf
+        - asset: assets/font/HelveticaNowText-Bold.otf
           weight: 700
-        - asset: assets/font/Metropolis-ExtraBold.otf
+        - asset: assets/font/HelveticaNowText-ExtraBold.otf
           weight: 800
   #
   # For details regarding fonts from package dependencies,

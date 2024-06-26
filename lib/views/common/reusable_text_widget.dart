@@ -10,14 +10,17 @@ class ReuseableText extends StatelessWidget {
     super.key,
     required this.title,
     required this.style,
-    this.textAlign, this.overflow
+    this.textAlign,
+    this.overflow,
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: style,
+      style: style.copyWith(
+        fontFamily: style.fontFamily ?? 'HelveticaNowText', // Default to 'Aeonik' if not provided
+      ),
       textAlign: textAlign ?? TextAlign.left,
       overflow: overflow,
       softWrap: false,

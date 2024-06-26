@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: 150.h,
+      height: 170.h,
       padding: EdgeInsets.fromLTRB(24.w, 70.h, 24.w, 0),
       color: Tcolor.White,
       child: Row(
@@ -27,11 +27,11 @@ class CustomAppBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CircleAvatar(
-                radius: 35.r,
+                radius: 50.r,
                 // backgroundColor: Tcolor.placeHolder,
                 // Uncomment the line below if you have a valid image URL
 
-                child: Image.asset("assets/img/bottombar_profile.png", height: 70.h, width: 70.w,),
+                child: Image.asset("assets/img/bottombar_profile.png", height: 100.h, width: 100.w,),
               ),
               SizedBox(width: 10.w),
               Column(

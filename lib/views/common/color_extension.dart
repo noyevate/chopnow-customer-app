@@ -34,6 +34,7 @@ class Tcolor{
   static Color get SECONDARY_S3 => const Color(0xfff380080);
   static Color get SECONDARY_S4 => const Color(0xfff250055);
   static Color get SECONDARY_Generic => const Color(0xffF9FAFA);
+    static Color get SECONDARY_T2 => const Color(0xffF9F5FF);
   static Color get Secondary => const Color(0xff5D00D4);
   static Color get Secondary_Base => const Color(0xff7F60D2);
   static Color get SECONDARY_Button => const Color(0xff9B4DFF);
