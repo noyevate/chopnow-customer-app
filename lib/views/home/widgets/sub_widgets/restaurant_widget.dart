@@ -11,6 +11,7 @@ class RestaurantWidget extends StatelessWidget {
     required this.time,
     required this.rating,
     required this.distance,
+    required this.isAvailabe,
   });
 
   final String image;
@@ -18,6 +19,7 @@ class RestaurantWidget extends StatelessWidget {
   final String time;
   final String rating;
   final String distance;
+  final bool isAvailabe;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +48,6 @@ class RestaurantWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-          
-                
                 SizedBox(
                   height: 20.h,
                 ),
@@ -100,32 +100,72 @@ class RestaurantWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-          
-                
               ],
             ),
           ),
-
           Positioned(
-                  right: 30.w,
-                  top: 20.h,
+            right: 30.w,
+            top: 20.h,
+            child: Container(
+              height: 44.h,
+              width: 90.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.r),
+                  color: Tcolor.PRIMARY_T5),
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Icon(
+                    Icons.star_rounded,
+                    size: 40.sp,
+                    color: Tcolor.Primary,
+                  ),
+                  ReuseableText(
+                    title: rating,
+                    style: TextStyle(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Tcolor.Text),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 10.h,
+            left: 10.h,
+            right: 10.w,
+            bottom: 92.w,
+            child: Visibility(
+              visible: !isAvailabe, // Show overlay if not available
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black54, // Semi-transparent dark color
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                child: Center(
                   child: Container(
-                    height: 44.h,
-                    width: 90.h,
+                    height: 40.h,
+                    width: 150.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: Tcolor.PRIMARY_T5
+                      color: Tcolor.ERROR_Light_2,
                     ),
-                    child: Wrap( 
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        Icon(Icons.star_rounded, size: 40.sp, color: Tcolor.Primary,),
-                        ReuseableText(title: rating, style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w600, color: Tcolor.Text),)
-                       
-                      ],
+                    child: Center(
+                      child: ReuseableText(
+                        title: 'Closed',
+                        style: TextStyle(
+                          fontSize: 32.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Tcolor.ERROR_Reg,
+                        ),
+                      ),
                     ),
-                  )
+                  ),
                 ),
+              ),
+            ),
+          ),
         ],
       ),
     );

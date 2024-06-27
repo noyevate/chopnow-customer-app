@@ -33,6 +33,7 @@ class PopularRestaurant extends StatelessWidget {
                 title: restaurant['name'],
                 rating: restaurant['rate'],
                 distance: "20Km",
+                isAvailabe: restaurant['isAvailable']
               );
             }),
           ),

@@ -9,7 +9,9 @@ class NewTasteWidget extends StatelessWidget {
     required this.image,
     required this.title,
     required this.rating,
-    required this.distance, required this.restaurant,
+    required this.distance,
+    required this.restaurant,
+    required this.isAvailabe,
   });
 
   final String image;
@@ -17,6 +19,7 @@ class NewTasteWidget extends StatelessWidget {
   final String rating;
   final String distance;
   final String restaurant;
+  final bool isAvailabe;
 
   @override
   Widget build(BuildContext context) {
@@ -101,32 +104,69 @@ class NewTasteWidget extends StatelessWidget {
             ),
           ),
           Positioned(
-              right: 30.w,
-              top: 20.h,
+            right: 30.w,
+            top: 20.h,
+            child: Container(
+              height: 44.h,
+              width: 90.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.r),
+                  color: Tcolor.PRIMARY_T5),
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Icon(
+                    Icons.star_rounded,
+                    size: 40.sp,
+                    color: Tcolor.Primary,
+                  ),
+                  ReuseableText(
+                    title: rating,
+                    style: TextStyle(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Tcolor.Text),
+                  )
+                ],
+              ),
+            ),
+          ),
+
+          Positioned(
+            top: 10.h,
+            left: 10.h,
+            right: 10.w,
+            bottom: 87.w,
+            child: Visibility(
+              visible: isAvailabe, // Show overlay if not available
               child: Container(
-                height: 44.h,
-                width: 90.h,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.r),
-                    color: Tcolor.PRIMARY_T5),
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.star_rounded,
-                      size: 40.sp,
-                      color: Tcolor.Primary,
-                    ),
-                    ReuseableText(
-                      title: rating,
-                      style: TextStyle(
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Tcolor.Text),
-                    )
-                  ],
+                  color: Colors.black54, // Semi-transparent dark color
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
-              )),
+                child: Center(
+                  child: Container(
+                    height: 40.h,
+                    width: 190.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.r),
+                      color: Tcolor.ERROR_Light_2,
+                    ),
+                    child: Center(
+                      child: ReuseableText(
+                        title: 'Unavailable',
+                        style: TextStyle(
+                          fontSize: 32.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Tcolor.ERROR_Reg,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

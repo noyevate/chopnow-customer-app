@@ -1,5 +1,6 @@
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/custom_appbar.dart';
+import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/home/widgets/category_list.dart';
 import 'package:chopnow_new_customer_app/views/home/widgets/nearby_restaurant.dart';
 import 'package:chopnow_new_customer_app/views/home/widgets/popular_restaurant.dart';
@@ -48,10 +49,9 @@ class Hompage extends StatelessWidget {
               child: const NewVenture(),
             ),
             
-            Container(
+            
+            SizedBox(
               height: 200.h,
-              width: double.infinity,
-              color: Tcolor.SECONDARY_T2,
             )
           ],
         ),
