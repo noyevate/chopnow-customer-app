@@ -87,7 +87,6 @@ class CustomBottomNav extends StatelessWidget {
 
     bool isSelected = selectedIndex == index;
     Color itemColor = isSelected ? Tcolor.Primary : Tcolor.TEXT_Label;
-    Color dotColor = isSelected ? Tcolor.Primary : Tcolor.White;
 
     Widget iconWidget;
     if (iconPath != null && iconType != null) {
@@ -112,7 +111,7 @@ class CustomBottomNav extends StatelessWidget {
       iconWidget = Icon(
         iconData,
         color: itemColor,
-        size: 40.sp,
+        size: 45.sp,
       );
     }
 
@@ -124,24 +123,24 @@ class CustomBottomNav extends StatelessWidget {
         children: [
           iconWidget,
           const SizedBox(height: 4),
-          ReuseableText(
-            title: label,
-            style: TextStyle(
-              fontSize: 24.sp,
-              color: itemColor,
-              fontWeight: FontWeight.w600,
+          if (isSelected)
+            Container(
+              width: 15.w,
+              height: 15.h,
+              decoration: BoxDecoration(
+                color: Tcolor.Primary,
+                shape: BoxShape.circle,
+              ),
+            )
+          else
+            ReuseableText(
+              title: label,
+              style: TextStyle(
+                fontSize: 24.sp,
+                color: itemColor,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          // Dot indicator
-          Container(
-            width: 10.w,
-            height: 10.w,
-            decoration: BoxDecoration(
-              color: dotColor,
-              shape: BoxShape.circle,
-            ),
-          ),
         ],
       ),
     );

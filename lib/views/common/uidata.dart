@@ -118,9 +118,6 @@ List<dynamic> restaurants = [
   },
 ];
 
-
-
-
 List mostPopArr = [
   {
     "image": "assets/img/m_res_1.png",
@@ -142,62 +139,230 @@ List mostPopArr = [
 
 List <Map<String, dynamic>> foods = [
   {
-    "image": "assets/img/m_res_2.png",
+    "image": "assets/img/venture_1.jpg",
     "name": "Mulberry Pizza",
+    "restaurant": "Item7",
+    "distance": "20KM",
     "rate": "4.9",
     "rating": "124",
     "price": "500",
-    "food_type": "Western Food",
+    "food_Type": ["Western"],
+    "food_Tag": ["Western", "Desset", "Italian", "pasteries", "Coffee"],
     "time": "60min", 
+     "isAvailable": "true",
+    "code": "123456789",
+    "additives" : [
+      {"id": 1, "title": "egg", "price": "1"},
+      {"id": 1, "title": "sauce", "price": "5.0"},
+      {"id": 1, "title": "monrin", "price": "30.0"},
+      {"id": 1, "title": "packuda", "price": "100.0"},
+    ],
+    "category": "123456789",
+    "description": "Made with love an joy from the best cooking kitchen in the south west."
   },
   {
-    "image": "assets/img/res_2.png",
+    "image": "assets/img/venture_2.jpg",
     "name": "Barita",
+    "restaurant": "Item7",
     "rate": "4.9",
+    "distance": "20KM",
     "rating": "124",
     "price": "1000",
-    "food_type": "Western Food",
+    "food_Type": ["Western"],
+    "food_Tag": ["Western", "Desset", "Italian", "pasteries", "Coffee"],
     "time": "50min", 
+     "isAvailable": "true",
+    "code": "123456789",
+    "additives" : [
+      {"id": 1, "title": "egg", "price": "1"},
+      {"id": 1, "title": "sauce", "price": "5.0"},
+      {"id": 1, "title": "monrin", "price": "30.0"},
+      {"id": 1, "title": "packuda", "price": "100.0"},
+    ],
+    "category": "123456789",
+    "description": "Made with love an joy from the best cooking kitchen in the south west."
   },
   {
-    "image": "assets/img/item_3.png",
+    "image": "assets/img/venture_3.jpg",
     "name": "Pizza Rush Hour",
+    "restaurant": "Item7",
     "rate": "4.9",
     "rating": "124",
+    "distance": "20KM",
     "price": "300",
     "food_type": "Western Food",
     "time": "40min", 
+     "isAvailable": "true",
+    "code": "123456789",
+    "additives" : [
+      {"id": 1, "title": "egg", "price": "1"},
+      {"id": 1, "title": "sauce", "price": "5.0"},
+      {"id": 1, "title": "monrin", "price": "30.0"},
+      {"id": 1, "title": "packuda", "price": "100.0"},
+    ],
+    "category": "123456789",
+    "description": "Made with love an joy from the best cooking kitchen in the south west."
   },
   {
-    "image": "assets/img/m_res_2.png",
+    "image": "assets/img/venture_1.jpg",
     "name": "Mulberry Pizza",
+    "restaurant": "Item7",
     "rate": "4.9",
     "rating": "124",
+    "distance": "20KM",
     "price": "500",
-    "food_type": "Western Food",
+    "food_Type": ["Western"],
+    "food_Tag": ["Western", "Desset", "Italian", "pasteries", "Coffee"], 
     "time": "60min", 
+    "isAvailable": "true",
+    "code": "123456789",
+    "additives" : [
+      {"id": 1, "title": "egg", "price": "1"},
+      {"id": 1, "title": "sauce", "price": "5.0"},
+      {"id": 1, "title": "monrin", "price": "30.0"},
+      {"id": 1, "title": "packuda", "price": "100.0"},
+    ],
+    "category": "123456789",
+    "description": "Made with love an joy from the best cooking kitchen in the south west."
+
   },
   {
-    "image": "assets/img/res_2.png",
+    "image": "assets/img/venture_2.jpg",
     "name": "Barita",
+    "restaurant": "Item7",
     "rate": "4.9",
     "rating": "124",
+    "distance": "20KM",
     "price": "1000",
-    "food_type": "Western Food",
+    "food_Type": ["Western"],
+    "food_Tag": ["Western", "Desset", "Italian", "pasteries", "Coffee"],
     "time": "50min", 
+     "isAvailable": "true",
+    "code": "123456789",
+    "additives" : [
+      {"id": 1, "title": "egg", "price": "1"},
+      {"id": 1, "title": "sauce", "price": "5.0"},
+      {"id": 1, "title": "monrin", "price": "30.0"},
+      {"id": 1, "title": "packuda", "price": "100.0"},
+    ],
+    "category": "123456789",
+    "description": "Made with love an joy from the best cooking kitchen in the south west."
   },
   {
-    "image": "assets/img/item_3.png",
+    "image": "assets/img/venture_3.jpg",
     "name": "Pizza Rush Hour",
+    "restaurant": "Item7",
     "rate": "4.9",
     "rating": "124",
-    "price": "300",
-    "food_type": "Western Food",
+    "distance": "20KM",
+    "price": "1500",
+    "food_Type": ["Western"],
+    "food_Tag": ["Western", "Desset", "Italian", "pasteries", "Coffee"],
     "time": "40min", 
+     "isAvailable": "true",
+    "code": "123456789",
+    "additives" : [
+      {"id": 1, "title": "egg", "price": "1"},
+      {"id": 1, "title": "sauce", "price": "5.0"},
+      {"id": 1, "title": "monrin", "price": "30.0"},
+      {"id": 1, "title": "packuda", "price": "100.0"},
+    ],
+    "category": "123456789",
+    "description": "Made with love an joy from the best cooking kitchen in the south west."
   },
+  {
+    "image": "assets/img/venture_1.jpg",
+    "name": "Pizza Rush Hour",
+    "restaurant": "Item7",
+    "rate": "4.9",
+    "rating": "124",
+    "distance": "20KM",
+    "price": "150",
+    "food_Type": ["Western"],
+    "food_Tag": ["Western", "Desset", "Italian", "pasteries", "Coffee"],
+    "time": "40min", 
+     "isAvailable": "true",
+    "code": "123456789",
+    "additives" : [
+      {"id": 1, "title": "egg", "price": "1"},
+      {"id": 1, "title": "sauce", "price": "5.0"},
+      {"id": 1, "title": "monrin", "price": "30.0"},
+      {"id": 1, "title": "packuda", "price": "100.0"},
+    ],
+    "category": "123456789",
+    "description": "Made with love an joy from the best cooking kitchen in the south west."
+  },
+  {
+    "image": "assets/img/venture_2.jpg",
+    "name": "Pizza Rush Hour",
+    "restaurant": "Item7",
+    "rate": "4.9",
+    "rating": "124",
+    "distance": "20KM",
+    "price": "480",
+    "food_Type": ["Western"],
+    "food_Tag": ["Western", "Desset", "Italian", "pasteries", "Coffee"],
+    "time": "40min", 
+     "isAvailable": "true",
+    "code": "123456789",
+    "additives" : [
+      {"id": 1, "title": "egg", "price": "1"},
+      {"id": 1, "title": "sauce", "price": "5.0"},
+      {"id": 1, "title": "monrin", "price": "30.0"},
+      {"id": 1, "title": "packuda", "price": "100.0"},
+    ],
+    "category": "123456789",
+    "description": "Made with love an joy from the best cooking kitchen in the south west."
+  },
+  {
+    "image": "assets/img/venture_3.jpg",
+    "name": "Pizza Rush Hour",
+    "restaurant": "Item7",
+    "rate": "4.9",
+    "rating": "124",
+    "distance": "20KM",
+    "price": "350",
+    "food_Type": ["Western"],
+    "food_Tag": ["Western", "Desset", "Italian", "pasteries", "Coffee"],
+    "time": "40min", 
+     "isAvailable": "true",
+    "code": "123456789",
+    "additives" : [
+      {"id": 1, "title": "egg", "price": "1"},
+      {"id": 1, "title": "sauce", "price": "5.0"},
+      {"id": 1, "title": "monrin", "price": "30.0"},
+      {"id": 1, "title": "packuda", "price": "100.0"},
+    ],
+    "category": "123456789",
+    "description": "Made with love an joy from the best cooking kitchen in the south west."
+  },
+  {
+    "image": "assets/img/venture_1.jpg",
+    "name": "Pizza Rush Hour",
+    "restaurant": "Item7",
+    "rate": "4.9",
+    "rating": "124",
+    "distance": "20KM",
+    "price": "500",
+    "food_Type": ["Western"],
+    "food_Tag": ["Western", "Desset", "Italian", "pasteries", "Coffee"],
+    "time": "40min", 
+     "isAvailable": "true",
+    "code": "123456789",
+    "additives" : [
+      {"id": 1, "title": "egg", "price": "1"},
+      {"id": 2, "title": "sauce", "price": "5.0"},
+      {"id": 3, "title": "monrin", "price": "30.0"},
+      {"id": 4, "title": "packuda", "price": "100.0"},
+    ],
+    "category": "123456789",
+    "description": "Made with love an joy from the best cooking kitchen in the south west."
+  },
+];
+
 
   //  const legit = "AIzaSyB_tADRTzPgH0QK7aIJMkurXbT-ZZjPOac"
-];
+
 
 
 
