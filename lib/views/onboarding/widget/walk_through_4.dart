@@ -100,7 +100,7 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                   },
                 ),
                 SizedBox(
-                  height: 40.h,
+                  height: 30.h,
                 ),
                 ReuseableText(
                   title: "By continuing you agree with ChopNow’s",

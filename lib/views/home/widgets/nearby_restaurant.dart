@@ -21,7 +21,7 @@ class NearbyRestaurant extends StatelessWidget {
         ),
         SizedBox(height: 10.h,),
         Container(
-          height: 300.h,
+          height: 310.h,
           // padding: EdgeInsets.only(left: 12.w, top: 10.h),
           child: ListView(
             scrollDirection: Axis.horizontal,
@@ -32,7 +32,7 @@ class NearbyRestaurant extends StatelessWidget {
                 time: restaurant['time'],
                 title: restaurant['name'],
                 rating: restaurant['rate'],
-                distance: "20Km", isAvailabe: restaurant['isAvailable'],
+                distance: "20Km", isAvailable: restaurant['isAvailable'],
               );
             }),
           ),

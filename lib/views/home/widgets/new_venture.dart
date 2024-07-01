@@ -31,7 +31,7 @@ class NewVenture extends StatelessWidget {
               // time: '',
               rating: food['rate'],
               distance: food['distance'],
-              restaurant: food['restaurant'], isAvailabe: food['isAvailable'],
+              restaurant: food['restaurant'], isAvailable: food['isAvailable'], 
             );
           }),
         ),

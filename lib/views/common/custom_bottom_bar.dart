@@ -30,7 +30,7 @@ class CustomBottomNav extends StatelessWidget {
           color: Tcolor.BACKGROUND_Dark,
           borderRadius: BorderRadius.vertical(top: Radius.circular(50.r)),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 0.5.w, vertical: 20.sp),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,8 +102,9 @@ class CustomBottomNav extends StatelessWidget {
         case IconType.image:
           iconWidget = Image.asset(
             iconPath,
-            width: 40.w,
-            height: 40.h,
+            width: 30.w,
+            height: 30.h,
+            color: itemColor,
           );
           break;
       }
@@ -111,7 +112,7 @@ class CustomBottomNav extends StatelessWidget {
       iconWidget = Icon(
         iconData,
         color: itemColor,
-        size: 45.sp,
+        size: 30.sp,
       );
     }
 
@@ -121,26 +122,23 @@ class CustomBottomNav extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          iconWidget,
-          const SizedBox(height: 4),
-          if (isSelected)
-            Container(
-              width: 15.w,
-              height: 15.h,
-              decoration: BoxDecoration(
-                color: Tcolor.Primary,
-                shape: BoxShape.circle,
-              ),
-            )
-          else
-            ReuseableText(
-              title: label,
-              style: TextStyle(
-                fontSize: 24.sp,
-                color: itemColor,
-                fontWeight: FontWeight.w600,
-              ),
+          Container(
+            width: 40.w,
+            height: 40.h,
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: iconWidget,
             ),
+          ),
+          const SizedBox(height: 4),
+          ReuseableText(
+            title: label,
+            style: TextStyle(
+              fontSize: 20.sp,
+              color: itemColor,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ],
       ),
     );

@@ -21,7 +21,7 @@ class PopularRestaurant extends StatelessWidget {
         ),
         SizedBox(height: 10.h,),
         SizedBox(
-          height: 300.h,
+          height: 310.h,
           // padding: EdgeInsets.only(left: 12.w, top: 10.h),
           child: ListView(
             scrollDirection: Axis.horizontal,
@@ -33,7 +33,7 @@ class PopularRestaurant extends StatelessWidget {
                 title: restaurant['name'],
                 rating: restaurant['rate'],
                 distance: "20Km",
-                isAvailabe: restaurant['isAvailable']
+                isAvailable: restaurant['isAvailable']
               );
             }),
           ),

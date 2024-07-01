@@ -11,7 +11,7 @@ class NewTasteWidget extends StatelessWidget {
     required this.rating,
     required this.distance,
     required this.restaurant,
-    required this.isAvailabe,
+    required this.isAvailable,
   });
 
   final String image;
@@ -19,155 +19,161 @@ class NewTasteWidget extends StatelessWidget {
   final String rating;
   final String distance;
   final String restaurant;
-  final bool isAvailabe;
+  final bool isAvailable;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
-      child: Stack(
-        children: [
-          Container(
-            // margin: EdgeInsets.only(right: 5.w),
-            padding: const EdgeInsets.all(5),
-            width: double.infinity,
-            // height: 200.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.r), color: Tcolor.White),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.r),
-                  child: Container(
-                    height: 230.h,
-                    width: double.infinity,
-                    child: Image.asset(
+      child: Container(
+        padding: const EdgeInsets.all(5),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.r),
+          color: Tcolor.White,
+        ),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20.r),
+              child: Container(
+                height: 220.h,
+                width: double.infinity,
+                child: Stack(
+                  children: [
+                    Image.asset(
                       image,
                       fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                ReuseableText(
-                  title: title,
-                  style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Tcolor.Text),
-                ),
-                SizedBox(
-                  height: 7.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 0, right: 10.h),
-                  child: Wrap(
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 10.w, // Horizontal space between items
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    runSpacing: 5.h,
-                    children: [
-                      ReuseableText(
-                        title: restaurant,
-                        style: TextStyle(
-                            fontSize: 24.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Tcolor.TEXT_Label),
-                      ),
-                      SizedBox(
-                        height: 10.w,
-                      ),
+                    if (!isAvailable)
                       Container(
-                        width: 10.w,
-                        height: 10.h,
                         decoration: BoxDecoration(
-                          color: Tcolor.BORDER_Light,
-                          shape: BoxShape.circle,
+                          color: Colors.black54, // Semi-transparent overlay
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        child: Center(
+                          child: Container(
+                            height: 50.h,
+                            width: 190.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: Tcolor.ERROR_Light_2,
+                            ),
+                            child: Center(
+                              child: ReuseableText(
+                                title: 'Unavailable',
+                                style: TextStyle(
+                                  fontSize: 32.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: Tcolor.ERROR_Reg,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      SizedBox(
-                        height: 10.w,
-                      ),
-                      ReuseableText(
-                        title: distance,
-                        style: TextStyle(
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 240.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ReuseableText(
+                    title: title,
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Tcolor.Text,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 7.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 0, right: 10.h),
+                    child: Wrap(
+                      spacing: 10.w,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      runSpacing: 5.h,
+                      children: [
+                        ReuseableText(
+                          title: restaurant,
+                          style: TextStyle(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w400,
-                            color: Tcolor.TEXT_Label),
+                            color: Tcolor.TEXT_Label,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.w,
+                        ),
+                        Container(
+                          width: 10.w,
+                          height: 10.h,
+                          decoration: BoxDecoration(
+                            color: Tcolor.BORDER_Light,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.w,
+                        ),
+                        ReuseableText(
+                          title: distance,
+                          style: TextStyle(
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Tcolor.TEXT_Label,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  height: 44.h,
+                  width: 98.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.r),
+                    color: Tcolor.PRIMARY_T5,
+                  ),
+                  child: Wrap(
+                   crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.star_rounded,
+                        size: 40.sp,
+                        color: Tcolor.Primary,
+                      ),
+                      ReuseableText(
+                        title: rating,
+                        style: TextStyle(
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Tcolor.Text,
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-          Positioned(
-            right: 30.w,
-            top: 20.h,
-            child: Container(
-              height: 44.h,
-              width: 90.h,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.r),
-                  color: Tcolor.PRIMARY_T5),
-              child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Icon(
-                    Icons.star_rounded,
-                    size: 40.sp,
-                    color: Tcolor.Primary,
-                  ),
-                  ReuseableText(
-                    title: rating,
-                    style: TextStyle(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Tcolor.Text),
-                  )
-                ],
               ),
             ),
-          ),
-
-          Positioned(
-            top: 10.h,
-            left: 10.h,
-            right: 10.w,
-            bottom: 87.w,
-            child: Visibility(
-              visible: isAvailabe, // Show overlay if not available
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.black54, // Semi-transparent dark color
-                  borderRadius: BorderRadius.circular(20.r),
-                ),
-                child: Center(
-                  child: Container(
-                    height: 40.h,
-                    width: 190.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      color: Tcolor.ERROR_Light_2,
-                    ),
-                    child: Center(
-                      child: ReuseableText(
-                        title: 'Unavailable',
-                        style: TextStyle(
-                          fontSize: 32.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Tcolor.ERROR_Reg,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

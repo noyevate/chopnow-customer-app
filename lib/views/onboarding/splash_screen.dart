@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
           decoration: BoxDecoration(
             
             color: Tcolor.SECONDARY_S4,
-            borderRadius: BorderRadius.circular(75.r)
+            borderRadius: BorderRadius.circular(100.r)
 
           ),
         ),
