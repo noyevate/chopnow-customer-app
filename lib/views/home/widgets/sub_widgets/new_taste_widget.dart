@@ -1,30 +1,34 @@
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
+import 'package:chopnow_new_customer_app/views/food/food_page.dart';
+import 'package:chopnow_new_customer_app/views/models/food_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class NewTasteWidget extends StatelessWidget {
   const NewTasteWidget({
     super.key,
-    required this.image,
-    required this.title,
-    required this.rating,
-    required this.distance,
-    required this.restaurant,
-    required this.isAvailable,
+    
+     required this.food
   });
 
-  final String image;
-  final String title;
-  final String rating;
-  final String distance;
-  final String restaurant;
-  final bool isAvailable;
+  
+  final FoodModel food;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        // showModalBottomSheet(
+        //   context: context,
+        //   isScrollControlled: true,
+        //   backgroundColor: Colors.transparent, // Make the background transparent
+        //   builder: (context) => FoodPage(food: food,)
+        // );
+
+        Get.to(() => FoodPage(food: food,));
+      },
       child: Container(
         padding: const EdgeInsets.all(5),
         width: double.infinity,
@@ -41,13 +45,13 @@ class NewTasteWidget extends StatelessWidget {
                 width: double.infinity,
                 child: Stack(
                   children: [
-                    Image.asset(
-                      image,
+                    Image.network(
+                      food.imageUrl[0],
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
                     ),
-                    if (!isAvailable)
+                    if (!food.isAvailable)
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.black54, // Semi-transparent overlay
@@ -87,7 +91,7 @@ class NewTasteWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ReuseableText(
-                    title: title,
+                    title: food.title,
                     style: TextStyle(
                       fontSize: 24.sp,
                       fontWeight: FontWeight.w600,
@@ -105,7 +109,7 @@ class NewTasteWidget extends StatelessWidget {
                       runSpacing: 5.h,
                       children: [
                         ReuseableText(
-                          title: restaurant,
+                          title: food.restaurant,
                           style: TextStyle(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w400,
@@ -127,7 +131,7 @@ class NewTasteWidget extends StatelessWidget {
                           height: 10.w,
                         ),
                         ReuseableText(
-                          title: distance,
+                          title: "20km",
                           style: TextStyle(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w400,
@@ -160,7 +164,7 @@ class NewTasteWidget extends StatelessWidget {
                         color: Tcolor.Primary,
                       ),
                       ReuseableText(
-                        title: rating,
+                        title: food.rating.toString(),
                         style: TextStyle(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.w600,

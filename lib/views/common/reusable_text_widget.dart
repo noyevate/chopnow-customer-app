@@ -5,13 +5,15 @@ class ReuseableText extends StatelessWidget {
   final TextStyle style;
   final TextAlign? textAlign;
   final TextOverflow? overflow;
+  final TextDecoration? decoration;
 
   const ReuseableText({
     super.key,
     required this.title,
     required this.style,
     this.textAlign,
-    this.overflow,
+    this.overflow, this.decoration,
+    
   });
 
   @override
@@ -19,9 +21,11 @@ class ReuseableText extends StatelessWidget {
     return Text(
       title,
       style: style.copyWith(
-        fontFamily: style.fontFamily ?? 'HelveticaNowText', // Default to 'Aeonik' if not provided
+        fontFamily: style.fontFamily ?? 'HelveticaNowText',
+        decoration: decoration ?? TextDecoration.none  // Default to 'Aeonik' if not provided
       ),
       textAlign: textAlign ?? TextAlign.left,
+      
       overflow: overflow,
       softWrap: false,
     );

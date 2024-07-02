@@ -24,7 +24,7 @@ class Tcolor{
   static Color get BORDER_Light => const Color(0xffE8EAED);
   static Color get BACKGROUND_Regaular => const Color(0xffF9FAFA);
   static Color get BACKGROUND_Dark => const Color(0xffF4F4F6);
-  static Color get ERROR_Reg => const Color(0xffDB0000);
+  static Color get ERROR_Reg => const Color(0xffC93B17);
   static Color get ERROR_Light_2 => const Color(0xffFFFAFA);
   static Color get Inner_Shadow => const Color(0xffE3E3E3);
 

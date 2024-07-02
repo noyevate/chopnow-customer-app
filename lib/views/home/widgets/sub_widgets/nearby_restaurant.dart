@@ -41,7 +41,7 @@ class NearbyRestaurantWidget extends StatelessWidget {
                 width: double.infinity,
                 child: Stack(
                   children: [
-                    Image.asset(
+                    Image.network(
                       image,
                       fit: BoxFit.cover,
                       width: double.infinity,
