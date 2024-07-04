@@ -1,6 +1,5 @@
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
-import 'package:chopnow_new_customer_app/views/common/uidata.dart';
 import 'package:chopnow_new_customer_app/views/home/widgets/sub_widgets/nearby_restaurant.dart';
 import 'package:chopnow_new_customer_app/views/hooks/fetch_resaurant.dart';
 import 'package:chopnow_new_customer_app/views/models/restaurant_model.dart';
@@ -27,7 +26,7 @@ class NearbyRestaurant extends HookWidget {
           style: TextStyle(
               fontSize: 32.sp, fontWeight: FontWeight.w600, color: Tcolor.Text),
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(height: 20.h,),
         SizedBox(
           height: 310.h,
           // padding: EdgeInsets.only(left: 12.w, top: 10.h),
@@ -35,12 +34,8 @@ class NearbyRestaurant extends HookWidget {
             scrollDirection: Axis.horizontal,
             children: List.generate(restaurantList!.length, (i) {
               RestaurantModel restaurant = restaurantList[i];
-              return NearbyRestaurantWidget(
-                image: restaurant.imageUrl,
-                time: restaurant.time,
-                title: restaurant.title,
-                rating: restaurant.rating.toString(),
-                distance: "20Km", isAvailable: restaurant.isAvailabe,
+              return NearbyRestaurantWidget(restaurant: restaurant,
+                
               );
             }),
           ),

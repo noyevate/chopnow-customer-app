@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final foodModel = foodModelFromJson(jsonString);
+//     final foodByRestaurantCategoryModel = foodByRestaurantCategoryModelFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<FoodModel> foodModelFromJson(String str) => List<FoodModel>.from(json.decode(str).map((x) => FoodModel.fromJson(x)));
+List<FoodByRestaurantCategoryModel> foodByRestaurantCategoryModelFromJson(String str) => List<FoodByRestaurantCategoryModel>.from(json.decode(str).map((x) => FoodByRestaurantCategoryModel.fromJson(x)));
 
-String foodModelToJson(List<FoodModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String foodByRestaurantCategoryModelToJson(List<FoodByRestaurantCategoryModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class FoodModel {
+class FoodByRestaurantCategoryModel {
     final String id;
     final String title;
     final String time;
@@ -28,9 +28,8 @@ class FoodModel {
     final String restaurantCategory;
     final DateTime createdAt;
     final DateTime updatedAt;
-    final int v;
 
-    FoodModel({
+    FoodByRestaurantCategoryModel({
         required this.id,
         required this.title,
         required this.time,
@@ -49,10 +48,9 @@ class FoodModel {
         required this.restaurantCategory,
         required this.createdAt,
         required this.updatedAt,
-        required this.v,
     });
 
-    factory FoodModel.fromJson(Map<String, dynamic> json) => FoodModel(
+    factory FoodByRestaurantCategoryModel.fromJson(Map<String, dynamic> json) => FoodByRestaurantCategoryModel(
         id: json["_id"],
         title: json["title"],
         time: json["time"],
@@ -71,7 +69,6 @@ class FoodModel {
         restaurantCategory: json["restaurant_category"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
-        v: json["__v"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -93,13 +90,12 @@ class FoodModel {
         "restaurant_category": restaurantCategory,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
-        "__v": v,
     };
 }
 
 class Additive {
     final int id;
-    final String title;
+    final Title title;
     final List<Option> options;
 
     Additive({
@@ -110,13 +106,13 @@ class Additive {
 
     factory Additive.fromJson(Map<String, dynamic> json) => Additive(
         id: json["id"],
-        title: json["title"],
+        title: titleValues.map[json["title"]]!,
         options: List<Option>.from(json["options"].map((x) => Option.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
-        "title": title,
+        "title": titleValues.reverse[title],
         "options": List<dynamic>.from(options.map((x) => x.toJson())),
     };
 }
@@ -139,4 +135,30 @@ class Option {
         "name": name,
         "price": price,
     };
+}
+
+enum Title {
+    DRINK,
+    PACKAGE,
+    PROTEIN,
+    SWALLOW
+}
+
+final titleValues = EnumValues({
+    "Drink": Title.DRINK,
+    "package": Title.PACKAGE,
+    "Protein": Title.PROTEIN,
+    "Swallow": Title.SWALLOW
+});
+
+class EnumValues<T> {
+    Map<String, T> map;
+    late Map<T, String> reverseMap;
+
+    EnumValues(this.map);
+
+    Map<T, String> get reverse {
+            reverseMap = map.map((k, v) => MapEntry(v, k));
+            return reverseMap;
+    }
 }

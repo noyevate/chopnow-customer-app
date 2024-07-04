@@ -154,10 +154,16 @@ class RestaurantWidget extends StatelessWidget {
                   child: Wrap(
                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      Icon(
-                        Icons.star_rounded,
-                        size: 40.sp,
-                        color: Tcolor.Primary,
+                      ShaderMask(
+                        shaderCallback: (Rect bounds) {
+                          return Tcolor.Primary_button.createShader(bounds);
+                        },
+                        child: Icon(
+                          Icons.star_rounded,
+                          size: 40.sp,
+                          color: Colors
+                              .white, // This color is irrelevant because the gradient shader will replace it
+                        ),
                       ),
                       ReuseableText(
                         title: rating,

@@ -1,6 +1,7 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
-import 'package:chopnow_new_customer_app/views/common/uidata.dart';
 import 'package:chopnow_new_customer_app/views/home/widgets/sub_widgets/new_taste_widget.dart';
 import 'package:chopnow_new_customer_app/views/hooks/fetch_all_food.dart';
 import 'package:chopnow_new_customer_app/views/models/food_model.dart';
@@ -17,7 +18,7 @@ class NewVenture extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final hookResult = useFetchAllFoods("0987654321");
-    final List<FoodModel>? foodList = hookResult.data;
+    final List<FoodModel>? foodList = hookResult.data ;
     final bool isLoading = hookResult.isLoading;
     final Exception? error = hookResult.error;
 
@@ -32,12 +33,16 @@ class NewVenture extends HookWidget {
               fontWeight: FontWeight.w600,
               color: Tcolor.Text),
         ),
+        SizedBox(height: 20.h,),
         Column(
           children: List.generate(foodList!.length, (i) {
             FoodModel food = foodList[i];
             return NewTasteWidget(
               food: food, 
             );
+            
+
+            // return FoodTile(food: food,);
           }),
         ),
       ],

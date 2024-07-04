@@ -24,6 +24,7 @@ FetchFoods useFetchAllFoods(String code) {
       
       final response = await http.get(url);
       print("useFetchAllFoods: ${response.statusCode}");
+      print(response.body);
       
       if(response.statusCode == 200){
         food.value = foodModelFromJson(response.body);

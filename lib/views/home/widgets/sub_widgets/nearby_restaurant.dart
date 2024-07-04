@@ -1,30 +1,27 @@
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
+import 'package:chopnow_new_customer_app/views/models/restaurant_model.dart';
+import 'package:chopnow_new_customer_app/views/restaurant/restaurant_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class NearbyRestaurantWidget extends StatelessWidget {
   const NearbyRestaurantWidget({
-    super.key,
-    required this.image,
-    required this.title,
-    required this.time,
-    required this.rating,
-    required this.distance,
-    required this.isAvailable,
+    super.key, required this.restaurant,
+    
   });
 
-  final String image;
-  final String title;
-  final String time;
-  final String rating;
-  final String distance;
-  final bool isAvailable;
+
+  final RestaurantModel restaurant;
+ 
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => RestaurantPage(restaurant: restaurant,), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+      },
       child: Container(
         padding: const EdgeInsets.all(5),
         width: 450.w,
@@ -36,18 +33,18 @@ class NearbyRestaurantWidget extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20.r),
-              child: Container(
+              child: SizedBox(
                 height: 190.h,
                 width: double.infinity,
                 child: Stack(
                   children: [
                     Image.network(
-                      image,
+                      restaurant.imageUrl,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
                     ),
-                    if (!isAvailable)
+                    if (!restaurant.isAvailabe)
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.black54, // Semi-transparent overlay
@@ -87,7 +84,7 @@ class NearbyRestaurantWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ReuseableText(
-                    title: title,
+                    title: restaurant.title,
                     style: TextStyle(
                       fontSize: 24.sp,
                       fontWeight: FontWeight.w600,
@@ -105,7 +102,7 @@ class NearbyRestaurantWidget extends StatelessWidget {
                       runSpacing: 5.h,
                       children: [
                         ReuseableText(
-                          title: time,
+                          title: restaurant.time,
                           style: TextStyle(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w400,
@@ -127,7 +124,7 @@ class NearbyRestaurantWidget extends StatelessWidget {
                           height: 10.w,
                         ),
                         ReuseableText(
-                          title: distance,
+                          title: "20km",
                           style: TextStyle(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w400,
@@ -154,13 +151,19 @@ class NearbyRestaurantWidget extends StatelessWidget {
                   child: Wrap(
                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      Icon(
-                        Icons.star_rounded,
-                        size: 40.sp,
-                        color: Tcolor.Primary,
+                      ShaderMask(
+                        shaderCallback: (Rect bounds) {
+                          return Tcolor.Primary_button.createShader(bounds);
+                        },
+                        child: Icon(
+                          Icons.star_rounded,
+                          size: 40.sp,
+                          color: Colors
+                              .white, // This color is irrelevant because the gradient shader will replace it
+                        ),
                       ),
                       ReuseableText(
-                        title: rating,
+                        title: restaurant.rating.toString(),
                         style: TextStyle(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.w600,
