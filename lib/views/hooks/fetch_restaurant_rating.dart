@@ -1,17 +1,15 @@
 // ignore_for_file: avoid_print
 
-
 import 'package:chopnow_new_customer_app/views/common/size.dart';
 import 'package:chopnow_new_customer_app/views/models/api_error.dart';
-import 'package:chopnow_new_customer_app/views/models/food_model.dart';
-import 'package:chopnow_new_customer_app/views/models/hooks_model/food_hooks.dart';
+import 'package:chopnow_new_customer_app/views/models/category_model.dart';
+import 'package:chopnow_new_customer_app/views/models/hooks_model/hook_result.dart';
+import 'package:chopnow_new_customer_app/views/models/rating_model.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
 
-
-FetchFoods useFetchFoodsByRestaurantCategory(String id, String category ) {
-  final food = useState<List<FoodModel>?>(null);
+FetchHook useFetchRestaurantRating(String restaurantId) {
+  final restaurantRating = useState<List<RatingModel>?>(null);
   final isLoading = useState<bool>(false);
   final error = useState<Exception?>(null);
   final apiError = useState<ApiError?>(null);
@@ -20,21 +18,18 @@ FetchFoods useFetchFoodsByRestaurantCategory(String id, String category ) {
     isLoading.value = true;
 
     try {
-      final  url = Uri.parse("$appBaseUrl/api/food/foods-by-category/$id/$category");    
-      
+      final url = Uri.parse("$appBaseUrl/api/rating?restaurantId=$restaurantId");
+      print(url.toString());
       final response = await http.get(url);
-      print("useFetchFoodsByRestaurantCategory: ${response.statusCode}");
+      print(" useFetchRestaurantRating: ${response.statusCode}");
       
-      
-      if(response.statusCode == 200){
-        food.value = foodModelFromJson(response.body);
+      if (response.statusCode == 200) {
+        restaurantRating.value = ratingModelFromJson(response.body);
       } else {
         apiError.value = apiErrorFromJson(response.body);
       }
     } catch (e) {
-    debugPrint(e.toString());
-    //error.value = e as Exception;
-  
+      error.value = e as Exception;
     } finally {
       isLoading.value = false;
     }
@@ -50,11 +45,10 @@ FetchFoods useFetchFoodsByRestaurantCategory(String id, String category ) {
     fetchData();
   }
 
-
-  return FetchFoods(
-    data: food.value, 
-    isLoading: isLoading.value, 
-    error: error.value, 
+  return FetchHook(
+    data: restaurantRating.value,
+    isLoading: isLoading.value,
+    error: error.value,
     refetch: refetch,
   );
 }

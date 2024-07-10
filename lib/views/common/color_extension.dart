@@ -28,6 +28,7 @@ class Tcolor{
   static Color get ERROR_Reg => const Color(0xffC93B17);
   static Color get ERROR_Light_2 => const Color(0xffFFFAFA);
   static Color get Inner_Shadow => const Color(0xffE3E3E3);
+  static Color get Inner_Shadow_New => const Color(0xff757C91);
 
   static Color get White => const Color(0xffffffff);
   static Color get Text => const Color(0xff121419);
@@ -39,6 +40,8 @@ class Tcolor{
   static Color get Secondary => const Color(0xff5D00D4);
   static Color get Secondary_Base => const Color(0xff7F60D2);
   static Color get SECONDARY_Button => const Color(0xff9B4DFF);
+  static Color get SUCCESS_Light_2 => const Color(0xffF5FAF7);
+  static Color get SUCCESS_Reg => const Color(0xff009D44);
 
   // New gradient
   static LinearGradient get Primary_button => const LinearGradient(

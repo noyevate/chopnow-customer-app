@@ -37,7 +37,7 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(FoodController()); 
+    final controller = Get.put(FoodController());
     return Scaffold(
       backgroundColor: Colors.black12,
       body: Container(
@@ -188,16 +188,18 @@ class _FoodPageState extends State<FoodPage> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 25.w),
-                                child: Obx(() => ReuseableText(
-                                  title: "${controller.count.value}",
-                                  style: TextStyle(
-                                    fontSize: 30.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Tcolor.TEXT_Body,
-                                  ),
-                                ),)
-                              ),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 25.w),
+                                  child: Obx(
+                                    () => ReuseableText(
+                                      title: "${controller.count.value}",
+                                      style: TextStyle(
+                                        fontSize: 30.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: Tcolor.TEXT_Body,
+                                      ),
+                                    ),
+                                  )),
                               GestureDetector(
                                 onTap: () {
                                   controller.increment();
@@ -231,15 +233,6 @@ class _FoodPageState extends State<FoodPage> {
                         color: Tcolor.BORDER_Light,
                       ),
                       SizedBox(height: 10.h),
-                      ReuseableText(
-                        title: "Additives And Toppings",
-                        style: TextStyle(
-                          color: Tcolor.TEXT_Label,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 32.sp,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
                       SizedBox(height: 10.h),
                       Column(
                         children: List.generate(
@@ -265,95 +258,36 @@ class _FoodPageState extends State<FoodPage> {
                                     });
                                   },
                                 ),
-                                title: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ReuseableText(
                                       title: additive.title,
                                       style: TextStyle(
-                                        fontSize: 28.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: Tcolor.Text,
-                                      ),
-                                    ),
-                                    ReuseableText(
-                                      title:
-                                          "\u20A6 1200 ", // {additive.price.toString()}
-                                      style: TextStyle(
                                         color: Tcolor.TEXT_Label,
                                         fontWeight: FontWeight.w400,
-                                        fontSize: 28.sp,
+                                        fontSize: 32.sp,
                                         decoration: TextDecoration.none,
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      Divider(
-                        thickness: 2.w,
-                        color: Tcolor.BORDER_Light,
-                      ),
-                      SizedBox(height: 10.h),
-                      ReuseableText(
-                        title: "Additives And Toppings",
-                        style: TextStyle(
-                          color: Tcolor.TEXT_Label,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 32.sp,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
-                      Column(
-                        children: List.generate(
-                          widget.food!.additive.length,
-                          (index) {
-                            final additive = widget.food!.additive[index];
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 4.h), // Adjust vertical spacing
-                              child: ListTile(
-                                minTileHeight: 10.h, // Minimal vertical padding
-                                dense: true, // Reduce vertical size
-                                contentPadding:
-                                    EdgeInsets.zero, // No internal padding
-                                visualDensity:
-                                    VisualDensity.compact, // Compact density
-                                leading: CustomCircularCheckbox(
-                                  value: _isChecked[additive.title] ?? false,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      _isChecked[additive.title] =
-                                          value ?? false;
-                                    });
-                                  },
-                                ),
-                                title: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ReuseableText(
-                                      title: additive.title,
-                                      style: TextStyle(
-                                        fontSize: 28.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: Tcolor.Text,
-                                      ),
-                                    ),
-                                    ReuseableText(
-                                      title:
-                                          "\u20A6 \u20A6 1200 ", //${additive.price.toString()}
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: List.generate(additive.options.length, (index) {
+                                        final options = additive.options[index];
+                                      return  ReuseableText(
+                                      title: options.name,
                                       style: TextStyle(
                                         color: Tcolor.TEXT_Label,
                                         fontWeight: FontWeight.w400,
-                                        fontSize: 28.sp,
+                                        fontSize: 32.sp,
                                         decoration: TextDecoration.none,
                                       ),
+                                    );
+                                      })
+                                        
+                                        
+                                      
                                     ),
                                   ],
                                 ),
@@ -492,11 +426,10 @@ class _FoodPageState extends State<FoodPage> {
                             title: "₦10,000 | Add to cart",
                             showArrow: false,
                             btnHeight: 80.h,
-                            btnWidth: width/ 1.8,
+                            btnWidth: width / 1.8,
                             raduis: 100.r,
                             fontSize: 30.sp,
                             textColor: Tcolor.Text,
-
                           )
                         ],
                       )

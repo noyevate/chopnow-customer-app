@@ -26,8 +26,8 @@ class ReuseableText extends StatelessWidget {
       ),
       textAlign: textAlign ?? TextAlign.left,
       
-      overflow: overflow,
-      softWrap: false,
+      overflow: overflow ?? TextOverflow.ellipsis,
+      // softWrap: false,
     );
   }
 }

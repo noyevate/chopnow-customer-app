@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_final_fields
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/custom_button.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
-import 'package:chopnow_new_customer_app/views/common/size.dart';
+import 'package:chopnow_new_customer_app/views/common/uidata.dart';
 import 'package:chopnow_new_customer_app/views/models/restaurant_model.dart';
+import 'package:chopnow_new_customer_app/views/restaurant/restaurant_info.dart';
+import 'package:chopnow_new_customer_app/views/restaurant/restaurant_search.dart';
 import 'package:chopnow_new_customer_app/views/restaurant/widget/restaurant_menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,33 +27,19 @@ class _RestaurantPageState extends State<RestaurantPage>
   late TabController _tabController = TabController(
       length: widget.restaurant!.restaurantCategories.length, vsync: this);
 
-  String _selectedCategory = ''; // State variable to hold selected tab text
-
   @override
   void initState() {
     super.initState();
 
-    // Initialize _selectedCategory with the first tab's text
-    _selectedCategory = widget.restaurant!.restaurantCategories[0].name;
-
-    // Add listener to update _selectedCategory when tab changes
-    _tabController.addListener(() {
-      if (_tabController.indexIsChanging) {
-        setState(() {
-          _selectedCategory = widget.restaurant!
-              .restaurantCategories[_tabController.index].name;
-              print(_selectedCategory);
-        });
-      }
-    });
-    
+    _tabController = TabController(
+      length: widget.restaurant!.restaurantCategories.length,
+      vsync: this,
+    );
   }
-  
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    
 
     return DefaultTabController(
       length: widget.restaurant!.restaurantCategories.length,
@@ -71,6 +57,54 @@ class _RestaurantPageState extends State<RestaurantPage>
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
+                  // Dark Overlay if not available
+                  if (!widget.restaurant!.isAvailabe)
+                    Container(
+                      height: 350.h,
+                      width: double.infinity,
+                      color: Colors.black
+                          .withOpacity(0.5), // Semi-transparent overlay
+                    ),
+                  // "Closed" Message if not available
+                  if (!widget.restaurant!.isAvailabe)
+                    Positioned(
+                      top: 150.h, // Center vertically
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Container(
+                          width: 180.w,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 8.h),
+                          decoration: BoxDecoration(
+                            color: Tcolor.ERROR_Light_2,
+                            borderRadius: BorderRadius.circular(50.r),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 15.w,
+                                height: 15.h,
+                                decoration: BoxDecoration(
+                                  color: Tcolor.ERROR_Reg,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              SizedBox(width: 15.w),
+                              ReuseableText(
+                                title: 'Closed',
+                                style: TextStyle(
+                                  fontSize: 32.sp,
+                                  color: Tcolor.ERROR_Reg,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  // if(!restaurant.)
                   // Icons on top of the image
                   Positioned(
                     top: 150.h, // Adjust the vertical position
@@ -106,6 +140,11 @@ class _RestaurantPageState extends State<RestaurantPage>
                               GestureDetector(
                                 onTap: () {
                                   // Implement your search functionality here
+                                  Get.to(
+                                    () =>  RestaurantSearch( restaurant: widget.restaurant,),
+                                    transition: Transition.fadeIn,
+                                    duration: const Duration(milliseconds: 700),
+                                  );
                                 },
                                 child: Container(
                                   width: 70.w,
@@ -210,15 +249,23 @@ class _RestaurantPageState extends State<RestaurantPage>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ReuseableText(
-                          title: widget.restaurant!.title,
-                          style: TextStyle(
-                              fontSize: 40.sp,
-                              color: Tcolor.Text,
-                              fontWeight: FontWeight.w700),
+                        SizedBox(
+                          width: 370.w,
+                          child: ReuseableText(
+                            title: widget.restaurant!.title,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 40.sp,
+                                color: Tcolor.Text,
+                                fontWeight: FontWeight.w700),
+                          ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => RestaurantInfo(
+                                  restaurant: widget.restaurant,
+                                ));
+                          },
                           child: Row(
                             children: [
                               CustomButton(
@@ -336,24 +383,6 @@ class _RestaurantPageState extends State<RestaurantPage>
                             ),
                           ],
                         ),
-                        const Separator(),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.delivery_dining_outlined,
-                              size: 28.sp,
-                              color: Tcolor.TEXT_Label,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 8.w),
-                              child: ReuseableText(
-                                title: "15 min",
-                                style: TextStyle(
-                                    fontSize: 28.sp, color: Tcolor.TEXT_Label),
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                     // Add more content here
@@ -388,7 +417,7 @@ class _RestaurantPageState extends State<RestaurantPage>
                             widget.restaurant!.restaurantCategories[index];
                         return Tab(
                           child: SizedBox(
-                            height: 100.h,
+                            height: 50.h,
                             width: width /
                                 widget.restaurant!.restaurantCategories.length,
                             child: Center(
@@ -417,9 +446,8 @@ class _RestaurantPageState extends State<RestaurantPage>
                 thickness: 2.w,
                 color: Tcolor.BORDER_Light,
               ),
-
               Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                padding: EdgeInsets.only(left: 40.w, right: 20.w),
                 child: SizedBox(
                   height: 600.h, // Adjust this height as needed
                   child: TabBarView(
@@ -427,14 +455,19 @@ class _RestaurantPageState extends State<RestaurantPage>
                     children: List.generate(
                       widget.restaurant!.restaurantCategories.length,
                       (index) {
-                        return RestaurantMenuWidget(restaurantCategory: _selectedCategory.toString(),);
+                        final restaurantCategory =
+                            widget.restaurant!.restaurantCategories[index];
+                        return RestaurantMenuWidget(
+                          restaurantCategory: restaurantCategory.name,
+                          emptyMessage:
+                              'No food for this restaurant in this category',
+                          restaurantId: widget.restaurant!.id,
+                        );
                       },
                     ),
                   ),
                 ),
               ),
-              
-
             ],
           ),
         ),

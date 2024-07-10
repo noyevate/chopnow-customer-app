@@ -17,7 +17,7 @@ class FoodTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(
-          () =>  FoodPage(food: food,),
+          () => FoodPage(food: food),
           transition: Transition.fadeIn,
           duration: const Duration(milliseconds: 700),
         );
@@ -30,7 +30,9 @@ class FoodTile extends StatelessWidget {
             height: 160.h,
             width: width,
             decoration: BoxDecoration(
-                color: Tcolor.White, borderRadius: BorderRadius.circular(20.r)),
+              color: Tcolor.White,
+              borderRadius: BorderRadius.circular(20.r),
+            ),
             child: Container(
               padding: EdgeInsets.all(4.r),
               child: Row(
@@ -45,32 +47,31 @@ class FoodTile extends StatelessWidget {
                         ReuseableText(
                           title: food.title,
                           style: TextStyle(
-                              fontSize: 30.sp,
-                              color: Tcolor.Text,
-                              fontWeight: FontWeight.w500),
+                            fontSize: 30.sp,
+                            color: Tcolor.Text,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
+                        SizedBox(height: 20.h),
                         SizedBox(
                           width: width / 2,
                           child: ReuseableText(
                             title: food.description,
                             style: TextStyle(
-                                fontSize: 28.sp,
-                                color: Tcolor.TEXT_Label,
-                                fontWeight: FontWeight.w400),
+                              fontSize: 28.sp,
+                              color: Tcolor.TEXT_Label,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
+                        SizedBox(height: 20.h),
                         ReuseableText(
                           title: "\u20A6 ${food.price.toString()}",
                           style: TextStyle(
-                              fontSize: 30.sp,
-                              color: Tcolor.Text,
-                              fontWeight: FontWeight.w500),
+                            fontSize: 30.sp,
+                            color: Tcolor.Text,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ],
                     ),
@@ -87,6 +88,36 @@ class FoodTile extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                         ),
+                        if (!food.isAvailable) ...[
+                          Container(
+                            width: 164.w,
+                            height: 164.h,
+                            color: Colors.black.withOpacity(0.5), // Semi-transparent overlay
+                          ),
+                          Positioned(
+                            bottom: 0, // Position at the bottom
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              height: 40.h,
+                              width: 164.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.r),
+                                color: Tcolor.ERROR_Light_2,
+                              ),
+                              child: Center(
+                                child: ReuseableText(
+                                  title: 'Out of Stock',
+                                  style: TextStyle(
+                                    fontSize: 24.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Tcolor.ERROR_Reg,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),
