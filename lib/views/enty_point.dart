@@ -7,6 +7,7 @@ import 'package:chopnow_new_customer_app/views/search/search.dart';
 import 'package:chopnow_new_customer_app/views/support/support.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:heroicons_flutter/heroicons_flutter.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -64,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
                   backgroundColor: Tcolor.Primary,
                   shape: const CircleBorder(),
                   child: Icon(
-                    Icons.shopping_bag,
+                    HeroiconsMini.shoppingBag,
                     color: Tcolor.TEXT_Label,
                     size: 50.sp,
                   ),

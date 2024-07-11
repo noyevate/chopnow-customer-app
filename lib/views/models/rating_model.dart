@@ -18,6 +18,7 @@ class RatingModel {
     final DateTime createdAt;
     final DateTime updatedAt;
     final int v;
+    final String name;
 
     RatingModel({
         required this.id,
@@ -28,6 +29,7 @@ class RatingModel {
         required this.createdAt,
         required this.updatedAt,
         required this.v,
+        required this.name,
     });
 
     factory RatingModel.fromJson(Map<String, dynamic> json) => RatingModel(
@@ -39,6 +41,7 @@ class RatingModel {
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
+         name: json["name"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -50,5 +53,6 @@ class RatingModel {
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
+        "name": name
     };
 }

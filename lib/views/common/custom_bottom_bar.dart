@@ -3,6 +3,7 @@ import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:heroicons_flutter/heroicons_flutter.dart';
 
 enum IconType { svg, image }
 
@@ -37,14 +38,14 @@ class CustomBottomNav extends StatelessWidget {
           children: [
             _buildNavItem(
               context,
-              iconData: Icons.home_outlined,
+              iconData: HeroiconsOutline.home,
               label: 'Home',
               index: 0,
               onPressed: () => onItemTapped(0),
             ),
             _buildNavItem(
               context,
-              iconData: Icons.search_outlined,
+              iconData: HeroiconsMini.magnifyingGlass,
               label: 'Search',
               index: 1,
               onPressed: () => onItemTapped(1),
@@ -52,7 +53,7 @@ class CustomBottomNav extends StatelessWidget {
             SizedBox(width: 30.w), // Space for FloatingActionButton
             _buildNavItem(
               context,
-              iconData: Icons.support_agent,
+              iconData: HeroiconsOutline.users,
               label: 'Support',
               index: 3,
               onPressed: () => onItemTapped(3),
@@ -128,6 +129,7 @@ class CustomBottomNav extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.contain,
               child: iconWidget,
+              
             ),
           ),
           const SizedBox(height: 4),

@@ -21,7 +21,7 @@ class ReuseableText extends StatelessWidget {
     return Text(
       title,
       style: style.copyWith(
-        fontFamily: style.fontFamily ?? 'HelveticaNowText',
+        fontFamily: style.fontFamily ?? 'Aeonik',
         decoration: decoration ?? TextDecoration.none  // Default to 'Aeonik' if not provided
       ),
       textAlign: textAlign ?? TextAlign.left,

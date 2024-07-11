@@ -23,6 +23,7 @@ class Tcolor{
 
   static Color get BORDER_Regular => const Color(0xffDDDFE4);
   static Color get BORDER_Light => const Color(0xffE8EAED);
+  static Color get BORDER_Dark => const Color(0xffC0C4CD);
   static Color get BACKGROUND_Regaular => const Color(0xffF9FAFA);
   static Color get BACKGROUND_Dark_Opacity => const Color.fromRGBO(244, 244, 246, 0.7);
   static Color get ERROR_Reg => const Color(0xffC93B17);

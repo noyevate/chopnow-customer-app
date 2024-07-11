@@ -1,7 +1,6 @@
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/models/restaurant_model.dart';
-import 'package:chopnow_new_customer_app/views/restaurant/restaurant_page.dart';
 import 'package:chopnow_new_customer_app/views/restaurant/restaurant_page_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

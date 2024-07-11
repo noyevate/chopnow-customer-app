@@ -20,7 +20,7 @@ class RatingTile extends StatelessWidget {
     required this.rating,
   });
 
-  final RatingModel rating;
+  final RatingModel? rating;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class RatingTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ReuseableText(
-                  title: "Micheal", // Replace with dynamically set name
+                  title: rating!.name, // Replace with dynamically set name
                   style: TextStyle(
                     fontSize: 30.sp,
                     color: Tcolor.Text,
@@ -45,7 +45,7 @@ class RatingTile extends StatelessWidget {
                 ),
                 RatingBarIndicator(
                   itemCount: 5,
-                  rating: rating.rating.toDouble(),
+                  rating: rating!.rating.toDouble(),
                   unratedColor: Tcolor.BACKGROUND_Dark,
                   itemSize: 26.sp,
                   itemBuilder: (context, i) => ShaderMask(
@@ -63,7 +63,7 @@ class RatingTile extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             ReuseableText(
-              title: rating.comment,
+              title: rating!.comment,
               style: TextStyle(
                 fontSize: 28.sp,
                 color: Tcolor.TEXT_Body,
@@ -73,7 +73,7 @@ class RatingTile extends StatelessWidget {
             ),
             SizedBox(height: 20.h), // Add some spacing
             ReuseableText(
-              title: formatDate(rating.createdAt),
+              title: formatDate(rating!.createdAt),
               style: TextStyle(
                 fontSize: 26.sp,
                 color: Tcolor.TEXT_Label,
