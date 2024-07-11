@@ -2,8 +2,10 @@ import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/custom_search_bar.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/common/size.dart';
+import 'package:chopnow_new_customer_app/views/controllers/search_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:heroicons_flutter/heroicons_flutter.dart';
 
 import 'category_search.dart';
@@ -37,6 +39,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SearchFoodRestaurantController());
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(5.h),
@@ -88,70 +91,143 @@ class _SearchPageState extends State<SearchPage> {
                           )
                         : null,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 60.h),
-                    child: ReuseableText(
-                      title: "Recent searches",
-                      style: TextStyle(
-                          fontSize: 34.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Tcolor.Text),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  SizedBox(
-                    height: 190.h,
-                    width: width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            const RecentSerarchCircleWidget(
-                              title: 'Grills',
-                            ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                            const RecentSerarchCircleWidget(
-                              title: 'Plantain',
-                            ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                            const RecentSerarchCircleWidget(
-                              title: 'Indomie',
-                            ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        const RecentSerarchCircleWidget(
-                          title: 'Iya Kamo',
-                        ),
-                      ],
-                    ),
-                  )
                 ],
               ),
             ),
-            Divider(
-              thickness: 25.h,
-              color: Tcolor.BACKGROUND_Regaular,
-            ),
             SizedBox(
-              height: 50.h,
-            ),
-            const CategorySearch(),
+              height: height,
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 30.w, right: 30.w, top: 10.h),
+                    child: SizedBox(
+                      height: 280.h,
+                      width: width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 30.h),
+                            child: ReuseableText(
+                              title: "Recent searches",
+                              style: TextStyle(
+                                  fontSize: 34.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Tcolor.Text),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 40.h,
+                          ),
+                          Row(
+                            children: [
+                              const RecentSerarchCircleWidget(
+                                title: 'Grills',
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              const RecentSerarchCircleWidget(
+                                title: 'Plantain',
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              const RecentSerarchCircleWidget(
+                                title: 'Indomie',
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          const RecentSerarchCircleWidget(
+                            title: 'Iya Kamo',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 20.w,
+                      bottom: 40.w,
+                    ),
+                    child: Divider(
+                      thickness: 25.h,
+                      color: Tcolor.BACKGROUND_Regaular,
+                    ),
+                  ),
+                  
+                  const CategorySearch(),
+                ],
+              ),
+            )
           ],
         ),
       ),
     );
   }
 }
+
+
+// Column(
+//                         children: [
+//                           Padding(
+//                             padding: EdgeInsets.only(top: 60.h),
+//                             child: ReuseableText(
+//                               title: "Recent searches",
+//                               style: TextStyle(
+//                                   fontSize: 34.sp,
+//                                   fontWeight: FontWeight.w500,
+//                                   color: Tcolor.Text),
+//                             ),
+//                           ),
+//                           SizedBox(
+//                             height: 40.h,
+//                           ),
+//                           SizedBox(
+//                             height: 190.h,
+//                             width: width,
+//                             child: Column(
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 Row(
+//                                   children: [
+//                                     const RecentSerarchCircleWidget(
+//                                       title: 'Grills',
+//                                     ),
+//                                     SizedBox(
+//                                       width: 10.w,
+//                                     ),
+//                                     const RecentSerarchCircleWidget(
+//                                       title: 'Plantain',
+//                                     ),
+//                                     SizedBox(
+//                                       width: 10.w,
+//                                     ),
+//                                     const RecentSerarchCircleWidget(
+//                                       title: 'Indomie',
+//                                     ),
+//                                     SizedBox(
+//                                       width: 10.w,
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 SizedBox(
+//                                   height: 15.h,
+//                                 ),
+//                                 const RecentSerarchCircleWidget(
+//                                   title: 'Iya Kamo',
+//                                 ),
+//                               ],
+//                             ),
+//                           )
+//                         ],
+//                       ),

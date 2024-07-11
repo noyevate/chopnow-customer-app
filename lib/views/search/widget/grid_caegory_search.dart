@@ -1,21 +1,25 @@
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/common/size.dart';
+import 'package:chopnow_new_customer_app/views/models/category_search_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GridCaegorySearch extends StatelessWidget {
   const GridCaegorySearch({
-    super.key,
+    super.key, required this.category,
   });
+
+  final CategorySearchModel category;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("Category Widget");
+        print(category.id);
       },
       child: Container(
+        height: height,
         margin: EdgeInsets.only(right: 30.w),
         padding: EdgeInsets.only(top: 4.h),
         width: width * 0.01,
@@ -30,8 +34,8 @@ class GridCaegorySearch extends StatelessWidget {
             SizedBox(
               height: 70.h,
               width: width / 1.5,
-              child: Image.asset(
-                "assets/img/checkers.png",
+              child: Image.network(
+                category.imageUrl,
                 fit: BoxFit.contain,
               ),
               // decoration: BoxDecoration(
@@ -43,7 +47,7 @@ class GridCaegorySearch extends StatelessWidget {
               height: 30.h,
             ),
             ReuseableText(
-              title: "Category",
+              title: category.title,
               style: TextStyle(
                   fontSize: 24.sp,
                   color: Tcolor.Text,
