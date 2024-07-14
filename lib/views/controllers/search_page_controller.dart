@@ -11,44 +11,38 @@ import 'package:chopnow_new_customer_app/views/models/api_error.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-class SearchFoodRestaurantController extends GetxController {
 
-  
+class SearchFoodRestaurantController extends GetxController {
   RxBool _isLoading = false.obs;
 
   bool get isLoading => _isLoading.value;
-  set setLoading(bool value) {
-    _isLoading.value = value;
-  }
+  set isLoading(bool value) => _isLoading.value = value;
 
-  List<FoodModel>? foodSearch;
-  List<RestaurantModel>? restaurantSearch;
+  RxList<FoodModel> foodSearch = RxList<FoodModel>();
+  RxList<RestaurantModel> restaurantSearch = RxList<RestaurantModel>();
 
-  void searchFod(String key) async {
-    setLoading = true;
-
-    Uri url = Uri.parse("$appBaseUrl/food/search/$key");
+  void searchFood(String key) async {
+    isLoading = true;
+    Uri url = Uri.parse("$appBaseUrl/api/food/search-food-restaurant/$key");
 
     try {
       var response = await http.get(url);
-      print("searched Foods or restaurating: $response");
+      print("searched Foods or restaurants: ${response.body}");
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
         var searchResponse = SearchResponse.fromJson(jsonResponse);
-        foodSearch = searchResponse.foods;
-        restaurantSearch = searchResponse.restaurants;
-        setLoading = false;
-        
+        foodSearch.assignAll(searchResponse.foods ?? []);
+        restaurantSearch.assignAll(searchResponse.restaurants ?? []);
       } else {
-        setLoading = false;
         var error = apiErrorFromJson(response.body);
+        // Handle error accordingly
       }
     } catch (e) {
-      setLoading = false;
       debugPrint(e.toString());
+      // Handle error accordingly
+    } finally {
+      isLoading = false;
     }
   }
-  
-
-
 }
+

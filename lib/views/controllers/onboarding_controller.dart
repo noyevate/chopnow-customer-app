@@ -21,15 +21,46 @@ class OnboardingController extends GetxController {
 
   
 
-  Color getButtonColor(int pageIndex) {
+  dynamic getButtonColor(int pageIndex) {
     switch (pageIndex) {
       case 0:
-        return Tcolor.Primary;
+        return Tcolor.Primary_button;
       case 1:
-        return Tcolor.SECONDARY_Button;
+        return Tcolor.SECONDARY_Button_gradient;
       case 2:
       default:
-        return Tcolor.Primary;
+        return Tcolor.Primary_button;
+    }
+  }
+  dynamic getBoxShadow(int pageIndex) {
+    switch (pageIndex) {
+      case 0:
+        return [
+                BoxShadow(
+                  color: Tcolor.PRIMARY_Button_Inner_Shadow, // Default shadow color
+              offset: const Offset(0, -1), // Default shadow position
+              blurRadius: 1, // Default shadow blur radius
+              spreadRadius: 0, // Default shadow spread radius
+                )
+              ];
+      case 1:
+        return [
+                BoxShadow(
+                  color: Tcolor.Secondary_Inner_Button, // Default shadow color
+              offset: const Offset(0, -1), // Default shadow position
+              blurRadius: 1, // Default shadow blur radius
+              spreadRadius: 0, // Default shadow spread radius
+                )
+              ];
+      case 2:
+      default:
+        return [BoxShadow(
+                  color: Tcolor.PRIMARY_Button_Inner_Shadow, // Default shadow color
+              offset: const Offset(0, -1), // Default shadow position
+              blurRadius: 1, // Default shadow blur radius
+              spreadRadius: 0, // Default shadow spread radius
+                )
+              ];
     }
   }
 

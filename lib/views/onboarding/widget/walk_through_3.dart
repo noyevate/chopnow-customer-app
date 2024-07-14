@@ -38,7 +38,7 @@ class WalkThrough3 extends StatelessWidget {
                 ReuseableText(
                   title: "Order Easy,",
                   style: TextStyle(
-                    color: Tcolor.Primary,
+                    color: Tcolor.Primary_New,
                     fontSize: 90.sp,
                     fontWeight: FontWeight.w900,
                   ),
@@ -46,7 +46,7 @@ class WalkThrough3 extends StatelessWidget {
                 ReuseableText(
                   title: "Eat Fast",
                   style: TextStyle(
-                    color: Tcolor.Primary,
+                    color: Tcolor.Primary_New,
                     fontSize: 90.sp,
                     fontWeight: FontWeight.w900,
                   ),
@@ -57,7 +57,7 @@ class WalkThrough3 extends StatelessWidget {
                 ReuseableText(
                   title: "Chop Now delivers fresh, piping hot food",
                   style: TextStyle(
-                      color: Tcolor.Primary,
+                      color: Tcolor.Primary_New,
                       fontSize: 28.sp,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 2.5.sp),
@@ -65,7 +65,7 @@ class WalkThrough3 extends StatelessWidget {
                 ReuseableText(
                   title: "straight to your door, satisfying your cravings",
                   style: TextStyle(
-                      color: Tcolor.Primary,
+                      color: Tcolor.Primary_New,
                       fontSize: 28.sp,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 2.5.sp),
@@ -73,7 +73,7 @@ class WalkThrough3 extends StatelessWidget {
                 ReuseableText(
                   title: "in a flash!",
                   style: TextStyle(
-                      color: Tcolor.Primary,
+                      color: Tcolor.Primary_New,
                       fontSize: 28.sp,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 2.5.sp),

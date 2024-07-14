@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:heroicons_flutter/heroicons_flutter.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -55,11 +56,11 @@ class _CreateAccountState extends State<CreateAccount> {
               children: [
                 SizedBox(height: 40.h),
                 Container(
-                  height: 90.h,
-                  width: 90.h,
+                  height: 70.h,
+                  width: 70.w,
                   decoration: BoxDecoration(
                     color: Tcolor.BACKGROUND_Dark,
-                    borderRadius: BorderRadius.circular(40.r),
+                    borderRadius: BorderRadius.circular(60.r),
                   ),
                   child: Center(
                     child: IconButton(
@@ -67,8 +68,9 @@ class _CreateAccountState extends State<CreateAccount> {
                         Get.back();
                       },
                       icon: Icon(
-                        Icons.arrow_back,
+                        HeroiconsOutline.arrowLeft,
                         color: Tcolor.Text,
+                        size: 24.sp,
                       ),
                     ),
                   ),
@@ -136,7 +138,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   children: [
                     Expanded(
                       child: FieldWidget(
-                        prefixIcon: const Icon(Icons.person_2_outlined),
+                        prefixIcon: const Icon(HeroiconsOutline.user),
                         hintText: "e.g john",
                         hintColor: Tcolor.TEXT_Placeholder,
                         hintFontSize: 30.sp,
@@ -150,7 +152,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     SizedBox(width: 30.w), // Space between the text fields
                     Expanded(
                       child: FieldWidget(
-                        prefixIcon: const Icon(Icons.person_2_outlined),
+                        prefixIcon: const Icon(HeroiconsOutline.user),
                         hintText: "e.g Adewale",
                         hintColor: Tcolor.TEXT_Placeholder,
                         hintFontSize: 30.sp,
@@ -200,7 +202,10 @@ class _CreateAccountState extends State<CreateAccount> {
                     SizedBox(width: 30.w), // Space between the text fields
                     Expanded(
                       child: FieldWidget(
-                        prefixIcon: const Icon(Icons.phone),
+                        prefixIcon: Container(
+                          height: 10.h,
+                          width: 0.w,
+                        ),
                         hintText: "81 343 XXXX",
                         hintColor: Tcolor.TEXT_Placeholder,
                         hintFontSize: 30.sp,

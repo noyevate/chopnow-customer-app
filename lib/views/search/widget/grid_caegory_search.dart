@@ -38,10 +38,7 @@ class GridCaegorySearch extends StatelessWidget {
                 category.imageUrl,
                 fit: BoxFit.contain,
               ),
-              // decoration: BoxDecoration(
-              //   borderRadius: BorderRadius.circular(20.r),
-              //   color: Tcolor.Primary,
-              // ),
+              
             ),
             SizedBox(
               height: 30.h,

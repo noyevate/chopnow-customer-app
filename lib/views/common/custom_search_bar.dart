@@ -11,12 +11,13 @@ class CustomTextWidget extends StatelessWidget {
     this.obscureText,
     this.suffixIcon,
     this.prefixIcon,
-    this.hintText,
+    this.hintText, this.onFieldSubmitted,
   });
 
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final void Function()? onEditingComplete;
+   final void Function(String)? onFieldSubmitted; 
   final bool? obscureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -25,8 +26,7 @@ class CustomTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.all(12.h),
-      // padding: EdgeInsets.only(left: 12.h),
+     
       height: 90.h,
       decoration: BoxDecoration(
           color: Tcolor.BACKGROUND_Regaular,
@@ -35,6 +35,7 @@ class CustomTextWidget extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
+        onFieldSubmitted: onFieldSubmitted, // Add this line
         onEditingComplete: onEditingComplete,
         obscureText: obscureText ?? false,
         textAlign: TextAlign.start,

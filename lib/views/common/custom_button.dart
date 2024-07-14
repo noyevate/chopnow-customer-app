@@ -45,8 +45,10 @@ class CustomButton extends StatelessWidget {
           border: border,
           backgroundBlendMode: backgroundBlendMode,
           gradient: gradient,
-          boxShadow: boxShadow
+          boxShadow: boxShadow 
         ),
+            
+        
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

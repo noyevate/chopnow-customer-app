@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class Tcolor{
   static Color get Primary => const Color(0xffEDB525);
+  static Color get Primary_New => const Color(0xffFFB800);
   static Color get PRIMARY_S4 => const Color(0xffBC8C10);
 
   static Color get PRIMARY_Button_color_1 => const Color(0xffF3CF72);
@@ -22,6 +23,7 @@ class Tcolor{
 
 
   static Color get BORDER_Regular => const Color(0xffDDDFE4);
+  static Color get BORDER_Regular_Inner_shadow => const Color(0xffE3E3E3);
   static Color get BORDER_Light => const Color(0xffE8EAED);
   static Color get BORDER_Dark => const Color(0xffC0C4CD);
   static Color get BACKGROUND_Regaular => const Color(0xffF9FAFA);
@@ -41,14 +43,24 @@ class Tcolor{
   static Color get Secondary => const Color(0xff5D00D4);
   static Color get Secondary_Base => const Color(0xff7F60D2);
   static Color get SECONDARY_Button => const Color(0xff9B4DFF);
+  static Color get Secondary_Inner_Button => const Color(0xff5304D3);
   static Color get SUCCESS_Light_2 => const Color(0xffF5FAF7);
   static Color get SUCCESS_Reg => const Color(0xff009D44);
 
   // New gradient
   static LinearGradient get Primary_button => const LinearGradient(
     colors: [Color(0xffF8D98A), Color(0xffFFB800)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+    
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
   );
+
+  static LinearGradient get SECONDARY_Button_gradient => const LinearGradient(
+    colors: [Color(0xffBB85FF), Color(0xff9232FF)],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter
+  );
+
+  
 
 }

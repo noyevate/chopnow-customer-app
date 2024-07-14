@@ -4,6 +4,7 @@ import 'package:chopnow_new_customer_app/views/auth/login/login_page.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/custom_button.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
+import 'package:chopnow_new_customer_app/views/controllers/onboarding_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,7 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(OnboardingController());
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.all(20.sp),
@@ -58,6 +60,15 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                   btnHeight: 100.h,
                   textColor: Tcolor.Text,
                   fontSize: 32.sp,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Tcolor
+                          .PRIMARY_Button_Inner_Shadow, // Default shadow color
+                      offset: const Offset(0, -1), // Default shadow position
+                      blurRadius: 1, // Default shadow blur radius
+                      spreadRadius: 0, // Default shadow spread radius
+                    )
+                  ],
                   gradient: LinearGradient(
                       colors: [
                         Tcolor.PRIMARY_Button_color_1,
@@ -66,7 +77,9 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: AlignmentDirectional.bottomCenter),
                   onTap: () {
-                    Get.to(() => const CreateAccount(), transition: Transition.rightToLeft, duration: const Duration(milliseconds: 700));
+                    Get.to(() => const CreateAccount(),
+                        transition: Transition.rightToLeft,
+                        duration: const Duration(milliseconds: 700));
                   },
                 ),
                 SizedBox(
@@ -80,10 +93,21 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                   btnHeight: 100.h,
                   textColor: Tcolor.Text,
                   btnColor: Tcolor.White,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Tcolor
+                          .BORDER_Regular_Inner_shadow, // Default shadow color
+                      offset: const Offset(0, -2), // Default shadow position
+                      blurRadius: 1.r, // Default shadow blur radius
+                      spreadRadius: 0, // Default shadow spread radius
+                    )
+                  ],
                   fontSize: 32.sp,
                   border: Border.all(color: Tcolor.BORDER_Regular),
                   onTap: () {
-                    Get.to(() => const LoginPage(), transition: Transition.rightToLeft, duration: const Duration(milliseconds: 700));
+                    Get.to(() => const LoginPage(),
+                        transition: Transition.rightToLeft,
+                        duration: const Duration(milliseconds: 700));
                   },
                 ),
                 CustomButton(
@@ -96,7 +120,9 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                   fontSize: 32.sp,
                   btnColor: Tcolor.White,
                   onTap: () {
-                    Get.offAll(() => const Location(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                    Get.offAll(() => const Location(),
+                        transition: Transition.fadeIn,
+                        duration: const Duration(milliseconds: 700));
                   },
                 ),
                 SizedBox(
@@ -111,19 +137,18 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Row(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                      },
+                      onTap: () {},
                       child: ReuseableText(
                         title: "Terms of Use ",
                         style: TextStyle(
                             color: Tcolor.PRIMARY_S4,
                             fontSize: 30.sp,
                             fontWeight: FontWeight.w500),
-                         textAlign: TextAlign.justify,
+                        textAlign: TextAlign.justify,
                       ),
                     ),
                     ReuseableText(
@@ -135,8 +160,7 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                       //textAlign: TextAlign.center,
                     ),
                     GestureDetector(
-                      onTap: () {
-                      },
+                      onTap: () {},
                       child: ReuseableText(
                         title: "Privacy Policies",
                         style: TextStyle(
