@@ -1,9 +1,11 @@
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
+import 'package:chopnow_new_customer_app/views/controllers/create_account_controller.dart';
 import 'package:chopnow_new_customer_app/views/controllers/otp_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:heroicons_flutter/heroicons_flutter.dart';
 
 
 import '../../../common/o_t_p_field.dart';
@@ -14,6 +16,7 @@ class OTPPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final OtpController controller = Get.put(OtpController());
+    final CreateAccountController accountController = Get.put(CreateAccountController()); 
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -24,8 +27,8 @@ class OTPPage extends StatelessWidget {
           children: [
             SizedBox(height: 40.h),
             Container(
-              height: 90.h,
-              width: 90.h,
+              height: 80.h,
+              width: 80.h,
               decoration: BoxDecoration(
                 color: Tcolor.BACKGROUND_Dark,
                 borderRadius: BorderRadius.circular(40.r),
@@ -34,10 +37,16 @@ class OTPPage extends StatelessWidget {
                 child: IconButton(
                   onPressed: () {
                     Get.back();
+                    // accountController.emailController.text = "";
+                    // accountController.phoneNumberController.text = "";
+                    // accountController.firstNameController.text = "";
+                    // accountController.lastNameController.text = "";
+
                   },
                   icon: Icon(
-                    Icons.arrow_back,
+                    HeroiconsOutline.arrowLeft,
                     color: Tcolor.Text,
+                    size: 32.sp,
                   ),
                 ),
               ),
@@ -69,19 +78,19 @@ class OTPPage extends StatelessWidget {
                   focusNode: controller.focusNodes[0],
                   onChanged: (value) => controller.handleOTPInput(value, 0),
                 ),
-                SizedBox(width: 50.w), // Custom space between fields
+                SizedBox(width: 20.w), // Custom space between fields
                 OTPField(
                   controller: controller.otp2Controller,
                   focusNode: controller.focusNodes[1],
                   onChanged: (value) => controller.handleOTPInput(value, 1),
                 ),
-                SizedBox(width: 50.w), // Custom space between fields
+                SizedBox(width: 20.w), // Custom space between fields
                 OTPField(
                   controller: controller.otp3Controller,
                   focusNode: controller.focusNodes[2],
                   onChanged: (value) => controller.handleOTPInput(value, 2),
                 ),
-                SizedBox(width: 50.w), // Custom space between fields
+                SizedBox(width: 20.w), // Custom space between fields
                 OTPField(
                   controller: controller.otp4Controller,
                   focusNode: controller.focusNodes[3],

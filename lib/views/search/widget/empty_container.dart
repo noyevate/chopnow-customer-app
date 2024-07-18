@@ -24,7 +24,7 @@ class Empty extends StatelessWidget {
               height: 30.h,
             ),
             ReuseableText(
-              title: "0 results for $text",
+              title: '0 results for "$text"',
               style: TextStyle(
                   fontSize: 28.sp,
                   fontWeight: FontWeight.w500,

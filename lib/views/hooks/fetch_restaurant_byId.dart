@@ -5,15 +5,15 @@ import 'dart:convert';
 
 import 'package:chopnow_new_customer_app/views/common/size.dart';
 import 'package:chopnow_new_customer_app/views/models/api_error.dart';
-import 'package:chopnow_new_customer_app/views/models/hooks_model/restaurant_hook.dart';
-import 'package:chopnow_new_customer_app/views/models/restaurant_model.dart';
+import 'package:chopnow_new_customer_app/views/models/hooks_model/single_restaurant_hook.dart';
+import 'package:chopnow_new_customer_app/views/models/single_restaurant_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 
 
-FetchRestaurant useFetchRestaurantById(String code) {
-  final restaurants = useState<RestaurantModel?>(null);
+FetchSingleRestaurant useFetchRestaurantById(String code) {
+  final restaurants = useState<SingleRestaurantModel?>(null);
   final isLoading = useState<bool>(false);
   final error = useState<Exception?>(null);
   final apiError = useState<ApiError?>(null);
@@ -29,7 +29,7 @@ FetchRestaurant useFetchRestaurantById(String code) {
       print(response.body);
       if(response.statusCode == 200){
         var restaurant = jsonDecode(response.body);
-        restaurants.value = RestaurantModel.fromJson(restaurant);
+        restaurants.value = SingleRestaurantModel.fromJson(restaurant);
       } else {
         apiError.value = apiErrorFromJson(response.body);
       }
@@ -53,7 +53,7 @@ FetchRestaurant useFetchRestaurantById(String code) {
   }
 
 
-  return FetchRestaurant(
+  return FetchSingleRestaurant(
     data: restaurants.value, 
     isLoading: isLoading.value, 
     error: error.value, 

@@ -23,8 +23,8 @@ class FieldWidget extends StatelessWidget {
     this.cursorHeight,
     this.height,
     this.width,
-    this.enabled,
-    this.onChanged, this.maxLength, this.focusNode, this.fillColor, this.borderRadius,
+    this.enabled = true,
+    this.onChanged, this.maxLength, this.focusNode, this.fillColor, this.borderRadius, this.borderColor = Colors.transparent, this.isValid = true,
   });
 
   final Widget? prefixIcon;
@@ -44,12 +44,15 @@ class FieldWidget extends StatelessWidget {
   final double? cursorHeight;
   final double? height;
   final double? width;
-  final bool? enabled;
+  final bool enabled;
   final void Function(String)? onChanged;
   final int? maxLength;
   final FocusNode? focusNode;
   final Color? fillColor;
   final BorderRadius? borderRadius;
+  final Color borderColor;
+  final bool isValid;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -100,39 +103,39 @@ class FieldWidget extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Tcolor.BORDER_Light,
+              color: borderColor,
               width: .5,
             ),
             borderRadius: BorderRadius.all(Radius.circular(16.r)),
           ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Tcolor.ERROR_Reg,
-              width: .5,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(16.r)),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.transparent,
-              width: .5,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(16.r)),
-          ),
+          // focusedErrorBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(
+          //     color: Tcolor.ERROR_Reg,
+          //     width: .5,
+          //   ),
+          //   borderRadius: BorderRadius.all(Radius.circular(16.r)),
+          // ),
+          // disabledBorder: OutlineInputBorder(
+          //   borderSide: const BorderSide(
+          //     color: Colors.transparent,
+          //     width: .5,
+          //   ),
+          //   borderRadius: BorderRadius.all(Radius.circular(16.r)),
+          // ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Tcolor.BORDER_Light,
+              color: borderColor,
               width: .5,
             ),
             borderRadius: BorderRadius.all(Radius.circular(16.r)),
           ),
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.transparent,
-              width: .5,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(24.r)),
-          ),
+          // border: OutlineInputBorder(
+          //   borderSide:  BorderSide(
+          //     color: Tcolor.ERROR_Reg,
+          //     width: .5,
+          //   ),
+          //   borderRadius: BorderRadius.all(Radius.circular(24.r)),
+          // ),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/custom_button.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/controllers/create_account_controller.dart';
+import 'package:chopnow_new_customer_app/views/models/registration_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,14 +24,11 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   void initState() {
     super.initState();
-    // Initialize the controller only once
     controller = Get.put(CreateAccountController());
-    
   }
 
   @override
   void dispose() {
-    // Dispose the controller when the widget is removed
     Get.delete<CreateAccountController>();
     super.dispose();
   }
@@ -48,7 +46,6 @@ class _CreateAccountState extends State<CreateAccount> {
       backgroundColor: Tcolor.White,
       body: Stack(
         children: [
-          // Scrollable content
           SingleChildScrollView(
             padding: EdgeInsets.all(30.sp),
             child: Column(
@@ -103,8 +100,6 @@ class _CreateAccountState extends State<CreateAccount> {
                   ),
                 ),
                 SizedBox(height: 30.h),
-
-                // Row for First Name and Last Name labels
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -118,7 +113,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10.w), // Add spacing between the labels
+                    SizedBox(width: 10.w),
                     Expanded(
                       child: ReuseableText(
                         title: "Last Name",
@@ -131,9 +126,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20.h), // Adjust this height to your preference
-
-                // Row for First Name and Last Name text fields
+                SizedBox(height: 20.h),
                 Row(
                   children: [
                     Expanded(
@@ -149,7 +142,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         onChanged: (value) => controller.validateForm(),
                       ),
                     ),
-                    SizedBox(width: 30.w), // Space between the text fields
+                    SizedBox(width: 30.w),
                     Expanded(
                       child: FieldWidget(
                         prefixIcon: const Icon(HeroiconsOutline.user),
@@ -165,9 +158,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20.h), // Adjust the spacing between rows
-
-                // Phone Number with Nigerian map and +234
+                SizedBox(height: 20.h),
                 ReuseableText(
                   title: "Phone number",
                   style: TextStyle(
@@ -176,52 +167,103 @@ class _CreateAccountState extends State<CreateAccount> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 10.h), // Space between the label and input
-
+                SizedBox(height: 10.h),
                 Row(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start, // Align items at the start
                   children: [
-                    // Fixed width FieldWidget containing SvgPicture
-                    FieldWidget(
-                      width: 200.w, // Adjust width to your preference
-                      prefixIcon: IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset(
-                          "assets/img/flag-for-flag-nigeria-svgrepo-com.svg",
-                          height: 40.h,
-                          width: 40.w,
-                        ),
+                    Container(
+                      width: 100.w, // Adjust the width as needed
+                      height: 115
+                          .h, // Adjust the height to match the text field height
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 8.w), // Padding for the icon and text
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Tcolor.BACKGROUND_Regaular),
+                        borderRadius: BorderRadius.circular(20.r),
+                        color: Tcolor.BACKGROUND_Regaular,
                       ),
-                      hintText: "+234",
-                      hintColor: Tcolor.TEXT_Placeholder,
-                      hintFontSize: 30.sp,
-                      hintFontWeight: FontWeight.w600,
-                      cursorHeight: 30.sp,
-                      cursorColor: Tcolor.Primary,
-                      enabled: false,
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            "assets/img/flag-for-flag-nigeria-svgrepo-com.svg",
+                            height: 24.h,
+                            width: 24.w,
+                          ),
+                          SizedBox(width: 4.w),
+                          Expanded(
+                            child: Text(
+                              "+234",
+                              style: TextStyle(
+                                color: Tcolor.TEXT_Placeholder,
+                                fontSize: 24.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(width: 30.w), // Space between the text fields
+                    SizedBox(width: 20.w),
                     Expanded(
-                      child: FieldWidget(
-                        prefixIcon: Container(
-                          height: 10.h,
-                          width: 0.w,
+                      child: Obx(
+                        () => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FieldWidget(
+                              prefixIcon: Container(
+                                height: 10.h,
+                                width: 0.w,
+                              ),
+                              hintText: "81 343 XXXX",
+                              hintColor: Tcolor.TEXT_Placeholder,
+                              hintFontSize: 30.sp,
+                              hintFontWeight: FontWeight.w600,
+                              cursorHeight: 30.sp,
+                              cursorColor: Tcolor.Primary,
+                              controller: controller.phoneNumberController,
+                              fillColor: controller.errorMessage.isNotEmpty
+                                  ? Tcolor.ERROR_Light_2
+                                  : Tcolor.BACKGROUND_Regaular,
+                              borderColor: controller.errorMessage.isNotEmpty
+                                  ? Tcolor.ERROR_Reg
+                                  : Tcolor.BACKGROUND_Regaular,
+                              onChanged: (value) {
+                                controller.phoneNumber.value = value;
+                                controller.validateForm();
+                              },
+                              keyboardType: TextInputType.phone,
+                            ),
+                            if (controller.errorMessage.isNotEmpty)
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: 8.h,
+                                    left:
+                                        32.w), // Adjust left padding as needed
+                                child: Row(
+                                  children: [
+                                    Icon(HeroiconsOutline.exclamationCircle,
+                                        size: 24.sp, color: Tcolor.ERROR_Reg),
+                                    SizedBox(width: 5.w),
+                                    Expanded(
+                                      child: ReuseableText(
+                                        title: controller.errorMessage.value,
+                                        style: TextStyle(
+                                          color: Tcolor.ERROR_Reg,
+                                          fontSize: 24.sp,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          ],
                         ),
-                        hintText: "81 343 XXXX",
-                        hintColor: Tcolor.TEXT_Placeholder,
-                        hintFontSize: 30.sp,
-                        hintFontWeight: FontWeight.w600,
-                        cursorHeight: 30.sp,
-                        cursorColor: Tcolor.Primary,
-                        controller: controller.phoneNumberController,
-                        onChanged: (value) => controller.validateForm(),
-                        keyboardType: TextInputType.phone,
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 20.h),
-
-                // Email Address
                 ReuseableText(
                   title: "Email Address",
                   style: TextStyle(
@@ -230,10 +272,10 @@ class _CreateAccountState extends State<CreateAccount> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 10.h), // Space between the label and input
+                SizedBox(height: 10.h),
                 FieldWidget(
-                  prefixIcon: const Icon(Icons.email_outlined),
-                  hintText: "e.g Adewalejohn2example.com",
+                  prefixIcon: Icon(HeroiconsOutline.envelope),
+                  hintText: "e.g Johnny@gmail.com",
                   hintColor: Tcolor.TEXT_Placeholder,
                   hintFontSize: 30.sp,
                   hintFontWeight: FontWeight.w600,
@@ -241,56 +283,45 @@ class _CreateAccountState extends State<CreateAccount> {
                   cursorColor: Tcolor.Primary,
                   controller: controller.emailController,
                   onChanged: (value) => controller.validateForm(),
+                  keyboardType: TextInputType.emailAddress,
                 ),
-                SizedBox(
-                    height:
-                        150.h), //reased bottom padding to avoid button overlap
+                SizedBox(height: 100.h),
               ],
             ),
           ),
-
-          // Positioned button at the bottom
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding:
-                  EdgeInsets.all(30.sp), // Padding to match the content padding
-              child: Obx(() => CustomButton(
-                    title: "Sign up",
-                    showArrow: false,
-                    btnColor: controller.isFormFilled.value
-                        ? Tcolor.PRIMARY_Button_color_1
-                        : Tcolor.PRIMARY_T4,
-                    btnHeight: 96.h,
-                    raduis: 50.r,
-                    btnWidth: 10000.w, // Adjust width as needed
-                    textColor: controller.isFormFilled.value ? Tcolor.Text_Secondary : Tcolor.TEXT_Label,
-                    fontSize: 32.sp,
-                    onTap: () {
-                      printY(
-                        controller.firstNameController.text,
-                        controller.lastNameController.text,
-                        controller.emailController.text,
-                        controller.phoneNumberController.text,
-                      );
-                      if (controller.firstNameController.text.isNotEmpty &&
-                          controller.lastNameController.text.isNotEmpty &&
-                          controller.emailController.text.isNotEmpty &&
-                          controller.phoneNumberController.text.isNotEmpty) {
-                            Get.to(() => const OTPPage(),
-                          transition: Transition.leftToRight,
-                          duration: const Duration(milliseconds: 10));
-                          controller.firstNameController.text = "";
-                          controller.lastNameController.text = "";
-                          controller.emailController.text = "";
-                          controller.phoneNumberController.text = "";
-                          } else{
-                            Get.snackbar("Uncompleted fields", "Complete the fields",
-                            backgroundColor: Tcolor.ERROR_Light_2);
-                          }
-                      
-                    },
-                  )),
+              padding: EdgeInsets.all(30.sp),
+              child: Obx(
+                () => CustomButton(
+                  title: "Sign Up",
+                  textColor: controller.isFormFilled.value
+                      ? Tcolor.Text
+                      : Tcolor.TEXT_Label,
+                  btnColor: controller.isFormFilled.value
+                      ? Tcolor.PRIMARY_Button_color_1
+                      : Tcolor.PRIMARY_T4,
+                  
+                  btnWidth: MediaQuery.of(context).size.width / 1.1,
+                  btnHeight: 96.h,
+                  raduis: 100.r,
+                  fontSize: 32.sp,
+                  onTap: controller.isFormFilled.value
+                      ? () {
+                          RegistrationModel model = RegistrationModel(
+                              firstName: controller.firstNameController.text,
+                              lastName: controller.lastNameController.text,
+                              phone: controller.phoneNumberController.text,
+                              email: controller.emailController.text);
+                              String data = registrationModelToJson(model);
+                              controller.createAccountFunction(data);
+                          
+                        }
+                      : null,
+                  showArrow: false,
+                ),
+              ),
             ),
           ),
         ],

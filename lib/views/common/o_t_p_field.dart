@@ -31,25 +31,26 @@ class OTPField extends StatelessWidget {
             color: Tcolor.TEXT_Body,
             fontWeight: FontWeight.w600),
         decoration: InputDecoration(
-          fillColor: Tcolor.SECONDARY_Generic,
+          filled: true,
+          fillColor: Tcolor.BACKGROUND_Regaular,
           counterText: '',
           contentPadding: EdgeInsets.symmetric(vertical: 15.h),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide(
-              color: Tcolor.BORDER_Light
+            borderSide: const BorderSide(
+              color: Colors.transparent
             )
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide(
-              color: Tcolor.BORDER_Light
+            borderSide: const BorderSide(
+              color: Colors.transparent
             )
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide(
-              color: Tcolor.BORDER_Light
+            borderSide: const BorderSide(
+              color: Colors.transparent
             )
           ),
         ),
