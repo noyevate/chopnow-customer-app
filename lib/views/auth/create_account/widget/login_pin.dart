@@ -36,7 +36,7 @@ class PinLoginPage extends StatelessWidget {
                 color: Tcolor.Text_Secondary,
               ),
             ),
-            SizedBox(height: 80.h), // Space between text and icon
+            SizedBox(height: 120.h), // Space between text and icon
             Center(
               child: SvgPicture.asset(
                 "assets/img/lock_icon.svg", // Replace with your lock icon asset

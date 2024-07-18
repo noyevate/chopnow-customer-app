@@ -1,17 +1,39 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:chopnow_new_customer_app/views/auth/create_account/widget/login_pin.dart';
+import 'package:chopnow_new_customer_app/views/auth/create_account/widget/otp_page.dart';
+import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
+import 'package:chopnow_new_customer_app/views/common/size.dart';
+import 'package:chopnow_new_customer_app/views/models/api_error.dart';
+import 'package:chopnow_new_customer_app/views/models/otp_success_model.dart';
+import 'package:chopnow_new_customer_app/views/models/success_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 
 class OtpController extends GetxController {
-  var otp = List.generate(4, (index) => ''.obs).obs;
+  final box = GetStorage();
+
+  RxBool _isLoading = false.obs;
+  bool get isLoading => _isLoading.value;
+
+  set setLoading(bool value) {
+    _isLoading.value = value;
+  }
+
+  var otp = List.generate(6, (index) => ''.obs).obs;
   var canResend = false.obs;
   var countdown = 60.obs;
 
   late TextEditingController otp1Controller,
       otp2Controller,
       otp3Controller,
-      otp4Controller;
+      otp4Controller,
+      otp5Controller,
+      otp6Controller;
+
   late List<FocusNode> focusNodes;
 
   late Timer _timer;
@@ -23,7 +45,9 @@ class OtpController extends GetxController {
     otp2Controller = TextEditingController();
     otp3Controller = TextEditingController();
     otp4Controller = TextEditingController();
-    focusNodes = List.generate(4, (_) => FocusNode());
+    otp5Controller = TextEditingController();
+    otp6Controller = TextEditingController();
+    focusNodes = List.generate(6, (_) => FocusNode());
     startTimer();
   }
 
@@ -33,6 +57,8 @@ class OtpController extends GetxController {
     otp2Controller.dispose();
     otp3Controller.dispose();
     otp4Controller.dispose();
+    otp5Controller.dispose();
+    otp6Controller.dispose();
     for (var node in focusNodes) {
       node.dispose();
     }
@@ -40,12 +66,21 @@ class OtpController extends GetxController {
   }
 
   void handleOTPInput(String value, int index) {
-    if (value.isNotEmpty && index < 3) {
+    if (value.isNotEmpty && index < 5) {
       otp[index].value = value;
       focusNodes[index + 1].requestFocus();
-    } else if (index == 3 && value.isNotEmpty) {
+    } else if (index == 5 && value.isNotEmpty) {
       otp[index].value = value;
       submitOTP();
+    } else if (value.isEmpty && index > 0) {
+      focusNodes[index - 1].requestFocus();
+    }
+  }
+
+  void handleBackspace(String value, int index) {
+    if (value.isEmpty && index > 0) {
+      otp[index - 1].value = '';
+      focusNodes[index - 1].requestFocus();
     }
   }
 
@@ -57,17 +92,78 @@ class OtpController extends GetxController {
     otp2Controller.clear();
     otp3Controller.clear();
     otp4Controller.clear();
+    otp5Controller.clear();
+    otp6Controller.clear();
     focusNodes[0].requestFocus();
   }
 
-  void submitOTP() {
+  void submitOTP() async {
     String fullOTP = otp.map((e) => e.value).join();
-    if (fullOTP.length == 4) {
-      // Handle OTP submission logic here
-      print("OTP Submitted: $fullOTP");
-      Get.offAll(() => const PinLoginPage(),
-          transition: Transition.fadeIn,
-          duration: const Duration(milliseconds: 700));
+    if (fullOTP.length == 6) {
+      setLoading = true;
+
+      // Retrieve user data from storage
+      var userID = box.read('userID');
+      var data = jsonEncode({
+        'user_id': userID,
+        'otp': fullOTP,
+      });
+
+      Uri url = Uri.parse("$appBaseUrl/api/users/verify-phone/$userID/$fullOTP");
+      Map<String, String> headers = {'Content-Type': 'application/json'};
+
+      try {
+        var response = await http.post(url, headers: headers, body: data);
+        print(response.body);
+        if (response.statusCode == 201) {
+          OtpSucessModel responseData = otpSucessModelFromJson(response.body);
+
+          String userId = responseData.id;
+          var user = jsonEncode(responseData);
+
+        // Save data to GetStorage
+        box.write(userId, user);
+        box.write('firstName', responseData.firstName);
+        box.write('lastName', responseData.lastName);
+        box.write('email', responseData.email);
+        box.write('phone', responseData.phone);
+        box.write('token', responseData.userToken);
+        box.write('verification', responseData.phoneVerification);
+
+
+
+          setLoading = false;
+          Get.offAll(() => const PinLoginPage(),
+              transition: Transition.fadeIn,
+              duration: const Duration(milliseconds: 700));
+        } else {
+          var error = apiErrorFromJson(response.body);
+          Get.defaultDialog(
+            backgroundColor: Tcolor.White,
+            title: "Verification Failed",
+            titleStyle: TextStyle(
+                fontSize: 28.sp,
+                fontWeight: FontWeight.w600,
+                color: Tcolor.TEXT_Placeholder),
+            middleText: error.message,
+            middleTextStyle: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w400,
+                color: Tcolor.TEXT_Label),
+            textConfirm: "OK",
+            onConfirm: () {
+              Get.back();
+            },
+            barrierDismissible: false,
+            confirmTextColor: Tcolor.Text,
+            buttonColor: Tcolor.TEXT_Label,
+          );
+          setLoading = false;
+        }
+      } catch (e) {
+        debugPrint(e.toString());
+        setLoading = false;
+      }
     }
   }
 

@@ -66,25 +66,25 @@ class OTPVerificationPage extends StatelessWidget {
                 OTPField(
                   controller: controller.otp1Controller,
                   focusNode: controller.focusNodes[0],
-                  onChanged: (value) => controller.handleOTPInput(value, 0),
+                  onChanged: (value) => controller.handleOTPInput(value, 0), 
                 ),
                 SizedBox(width: 50.w), // Custom space between fields
                 OTPField(
                   controller: controller.otp2Controller,
                   focusNode: controller.focusNodes[1],
-                  onChanged: (value) => controller.handleOTPInput(value, 1),
+                  onChanged: (value) => controller.handleOTPInput(value, 1), 
                 ),
                 SizedBox(width: 50.w), // Custom space between fields
                 OTPField(
                   controller: controller.otp3Controller,
                   focusNode: controller.focusNodes[2],
-                  onChanged: (value) => controller.handleOTPInput(value, 2),
+                  onChanged: (value) => controller.handleOTPInput(value, 2), 
                 ),
                 SizedBox(width: 50.w), // Custom space between fields
                 OTPField(
                   controller: controller.otp4Controller,
                   focusNode: controller.focusNodes[3],
-                  onChanged: (value) => controller.handleOTPInput(value, 3),
+                  onChanged: (value) => controller.handleOTPInput(value, 3), 
                 ),
               ],
             ),

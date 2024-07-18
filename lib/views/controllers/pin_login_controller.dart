@@ -1,7 +1,26 @@
+import 'dart:convert';
+
 import 'package:chopnow_new_customer_app/views/auth/create_account/widget/location.dart';
+import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
+import 'package:chopnow_new_customer_app/views/common/size.dart';
+import 'package:chopnow_new_customer_app/views/models/api_error.dart';
+import 'package:chopnow_new_customer_app/views/models/otp_success_model.dart';
+import 'package:chopnow_new_customer_app/views/models/success_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 
 class PinLoginController extends GetxController {
+  final box = GetStorage();
+
+  RxBool _isLoading = false.obs;
+  bool get isLoading => _isLoading.value;
+
+  set setLoading(bool value) {
+    _isLoading.value = value;
+  }
   var pin = ''.obs;
 
   void handleKeyPress(String value) {
@@ -17,16 +36,62 @@ class PinLoginController extends GetxController {
     pin.value = '';
   }
 
-  void submitPin() {
+  Future<void> submitPin() async {
+    
     if (pin.value.length == 4) {
       // PIN is complete, handle the submission
       print("Submitted PIN: ${pin.value}");
-            Get.offAll(() => const Location(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+            // Get.offAll(() => const Location(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
 
       // Perform your submission logic here, e.g., API call or navigation
-    } else {
-      // PIN is not complete, show an error or warning
-      print("PIN must be 4 digits");
+      setLoading = true;
+
+      // Retrieve user data from storage
+      var userID = box.read('userID');
+      var data = jsonEncode({
+        'user_id': userID,
+        
+      });
+
+      Uri url = Uri.parse("$appBaseUrl/set-pin/$userID/${pin.value}");
+      Map<String, String> headers = {'Content-Type': 'application/json'};
+
+      try {
+        var response = await http.post(url, headers: headers, body: data);
+        print(response.body);
+        if (response.statusCode == 201) {
+          var responseData = successModelFromJson(response.body);
+          setLoading = false;
+          Get.offAll(() => const Location(), transition: Transition.fade, duration: const Duration(milliseconds: 700));
+          
+        } else {
+          var error = apiErrorFromJson(response.body);
+          Get.defaultDialog(
+            backgroundColor: Tcolor.White,
+            title: "Verification Failed",
+            titleStyle: TextStyle(
+                fontSize: 28.sp,
+                fontWeight: FontWeight.w600,
+                color: Tcolor.TEXT_Placeholder),
+            middleText: error.message,
+            middleTextStyle: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w400,
+                color: Tcolor.TEXT_Label),
+            textConfirm: "OK",
+            onConfirm: () {
+              Get.back();
+            },
+            barrierDismissible: false,
+            confirmTextColor: Tcolor.Text,
+            buttonColor: Tcolor.TEXT_Label,
+          );
+          setLoading = false;
+        }
+      } catch (e) {
+        debugPrint(e.toString());
+        setLoading = false;
+      }
     }
   }
-}
+    } 

@@ -64,7 +64,7 @@ class FoodTile extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20.h),
+                        SizedBox(height: 10.h),
                         ReuseableText(
                           title: "\u20A6 ${food.price.toString()}",
                           style: TextStyle(

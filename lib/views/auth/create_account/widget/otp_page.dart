@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:heroicons_flutter/heroicons_flutter.dart';
 
-
 import '../../../common/o_t_p_field.dart';
 
 class OTPPage extends StatelessWidget {
@@ -16,7 +15,7 @@ class OTPPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final OtpController controller = Get.put(OtpController());
-    final CreateAccountController accountController = Get.put(CreateAccountController()); 
+    final CreateAccountController accountController = Get.put(CreateAccountController());
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -37,10 +36,11 @@ class OTPPage extends StatelessWidget {
                 child: IconButton(
                   onPressed: () {
                     Get.back();
-                    // accountController.emailController.text = "";
-                    // accountController.phoneNumberController.text = "";
-                    // accountController.firstNameController.text = "";
-                    // accountController.lastNameController.text = "";
+                    accountController.emailController.text = "";
+                    accountController.phoneNumberController.text = "";
+                    accountController.firstNameController.text = "";
+                    accountController.lastNameController.text = "";
+
 
                   },
                   icon: Icon(
@@ -55,9 +55,9 @@ class OTPPage extends StatelessWidget {
             ReuseableText(
               title: "Enter OTP",
               style: TextStyle(
-                  fontSize: 40.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Tcolor.Text,
+                fontSize: 40.sp,
+                fontWeight: FontWeight.w600,
+                color: Tcolor.Text,
               ),
             ),
             SizedBox(height: 10.h),
@@ -96,27 +96,38 @@ class OTPPage extends StatelessWidget {
                   focusNode: controller.focusNodes[3],
                   onChanged: (value) => controller.handleOTPInput(value, 3),
                 ),
+                SizedBox(width: 20.w), // Custom space between fields
+                OTPField(
+                  controller: controller.otp5Controller,
+                  focusNode: controller.focusNodes[4],
+                  onChanged: (value) => controller.handleOTPInput(value, 4),
+                ),
+                SizedBox(width: 20.w), // Custom space between fields
+                OTPField(
+                  controller: controller.otp6Controller,
+                  focusNode: controller.focusNodes[5],
+                  onChanged: (value) => controller.handleOTPInput(value, 5),
+                ),
               ],
             ),
-             // Pushes the resend text to the bottom
-             const Spacer(),
+            const Spacer(), // Pushes the resend text to the bottom
             Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 50.h), // Adjust padding as needed
-              child: Obx(() => TextButton(
-                onPressed: controller.canResend.value ? controller.resendCode : null,
-                child: ReuseableText(
-                  title: controller.canResend.value ? "Resend code" : "Resend code in ${controller.countdown.value} secs",
-                  style: TextStyle(
-                    color: controller.canResend.value ? Tcolor.PRIMARY_Button_color_1 : Tcolor.TEXT_Label,
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.w400,
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 50.h), // Adjust padding as needed
+                child: Obx(() => TextButton(
+                  onPressed: controller.canResend.value ? controller.resendCode : null,
+                  child: ReuseableText(
+                    title: controller.canResend.value ? "Resend code" : "Resend code in ${controller.countdown.value} secs",
+                    style: TextStyle(
+                      color: controller.canResend.value ? Tcolor.PRIMARY_Button_color_1 : Tcolor.TEXT_Label,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-              )),
+                )),
+              ),
             ),
-          ),
             SizedBox(height: 30.h), // Space from the bottom
           ],
         ),

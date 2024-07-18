@@ -24,7 +24,7 @@ class OTPField extends StatelessWidget {
         focusNode: focusNode,
         textAlign: TextAlign.center,
         maxLength: 1,
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.phone,
         onChanged: onChanged,
         style: TextStyle(
             fontSize: 32.sp,
