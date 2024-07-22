@@ -1,29 +1,34 @@
 // To parse this JSON data, do
 //
-//     final setPinModel = setPinModelFromJson(jsonString);
+//     final setPinResponseModel = setPinResponseModelFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-SetPinModel setPinModelFromJson(String str) => SetPinModel.fromJson(json.decode(str));
+SetPinResponseModel setPinResponseModelFromJson(String str) => SetPinResponseModel.fromJson(json.decode(str));
 
-String setPinModelToJson(SetPinModel data) => json.encode(data.toJson());
+String setPinResponseModelToJson(SetPinResponseModel data) => json.encode(data.toJson());
 
-class SetPinModel {
-    final String phone;
-    final String pin;
+class SetPinResponseModel {
+    final bool status;
+    final String message;
+    final String token;
 
-    SetPinModel({
-        required this.phone,
-        required this.pin,
+    SetPinResponseModel({
+        required this.status,
+        required this.message,
+        required this.token,
     });
 
-    factory SetPinModel.fromJson(Map<String, dynamic> json) => SetPinModel(
-        phone: json["phone"],
-        pin: json["pin"],
+    factory SetPinResponseModel.fromJson(Map<String, dynamic> json) => SetPinResponseModel(
+        status: json["status"],
+        message: json["message"],
+        token: json["token"],
     );
 
     Map<String, dynamic> toJson() => {
-        "phone": phone,
-        "pin": pin,
+        "status": status,
+        "message": message,
+        "token": token,
     };
 }

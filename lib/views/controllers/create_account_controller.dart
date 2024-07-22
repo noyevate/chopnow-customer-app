@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'package:chopnow_new_customer_app/views/auth/create_account/widget/otp_page.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
-import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/common/size.dart';
-import 'package:chopnow_new_customer_app/views/models/account_creation_success_model.dart';
 import 'package:chopnow_new_customer_app/views/models/api_error.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -82,6 +79,7 @@ class CreateAccountController extends GetxController {
     );
 
     if (response.statusCode == 400 || response.statusCode == 404) {
+      print(response.body);
       final responseData = jsonDecode(response.body);
       errorMessage.value = responseData['message'];
     } else {

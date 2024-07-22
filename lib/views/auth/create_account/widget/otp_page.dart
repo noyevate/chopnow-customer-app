@@ -40,8 +40,6 @@ class OTPPage extends StatelessWidget {
                     accountController.phoneNumberController.text = "";
                     accountController.firstNameController.text = "";
                     accountController.lastNameController.text = "";
-
-
                   },
                   icon: Icon(
                     HeroiconsOutline.arrowLeft,
@@ -62,7 +60,7 @@ class OTPPage extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             ReuseableText(
-              title: "Enter the 6-digit code sent to 080***321 to verify your.",
+              title: "Enter the 4-digit code sent to 080***321 to verify your.",
               style: TextStyle(
                 fontSize: 24.sp,
                 color: Tcolor.TEXT_Label,
@@ -70,51 +68,61 @@ class OTPPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 50.h),
-            Row(
+            Obx(() => Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 OTPField(
                   controller: controller.otp1Controller,
                   focusNode: controller.focusNodes[0],
                   onChanged: (value) => controller.handleOTPInput(value, 0),
+                  isError: controller.isOtpWrong.value,
                 ),
-                SizedBox(width: 20.w), // Custom space between fields
+                SizedBox(width: 20.w),
                 OTPField(
                   controller: controller.otp2Controller,
                   focusNode: controller.focusNodes[1],
                   onChanged: (value) => controller.handleOTPInput(value, 1),
+                  isError: controller.isOtpWrong.value,
                 ),
-                SizedBox(width: 20.w), // Custom space between fields
+                SizedBox(width: 20.w),
                 OTPField(
                   controller: controller.otp3Controller,
                   focusNode: controller.focusNodes[2],
                   onChanged: (value) => controller.handleOTPInput(value, 2),
+                  isError: controller.isOtpWrong.value,
                 ),
-                SizedBox(width: 20.w), // Custom space between fields
+                SizedBox(width: 20.w),
                 OTPField(
                   controller: controller.otp4Controller,
                   focusNode: controller.focusNodes[3],
                   onChanged: (value) => controller.handleOTPInput(value, 3),
-                ),
-                SizedBox(width: 20.w), // Custom space between fields
-                OTPField(
-                  controller: controller.otp5Controller,
-                  focusNode: controller.focusNodes[4],
-                  onChanged: (value) => controller.handleOTPInput(value, 4),
-                ),
-                SizedBox(width: 20.w), // Custom space between fields
-                OTPField(
-                  controller: controller.otp6Controller,
-                  focusNode: controller.focusNodes[5],
-                  onChanged: (value) => controller.handleOTPInput(value, 5),
+                  isError: controller.isOtpWrong.value,
                 ),
               ],
-            ),
-            const Spacer(), // Pushes the resend text to the bottom
+            )),
+            if (controller.isOtpWrong.value)
+              Padding(
+                padding: EdgeInsets.only(top: 10.h),
+                child: Row(
+                  children: [
+                    Icon(HeroiconsOutline.exclamationCircle, color: Tcolor.ERROR_Reg, size: 24.sp,),
+                    SizedBox(width: 10.w),
+                    ReuseableText(
+                      title: "Incorrect OTP, please try again.",
+                      style: TextStyle(
+                        color: Tcolor.ERROR_Reg,
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            const Spacer(),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 50.h), // Adjust padding as needed
+                padding: EdgeInsets.only(bottom: 50.h),
                 child: Obx(() => TextButton(
                   onPressed: controller.canResend.value ? controller.resendCode : null,
                   child: ReuseableText(
@@ -128,7 +136,7 @@ class OTPPage extends StatelessWidget {
                 )),
               ),
             ),
-            SizedBox(height: 30.h), // Space from the bottom
+            SizedBox(height: 30.h),
           ],
         ),
       ),

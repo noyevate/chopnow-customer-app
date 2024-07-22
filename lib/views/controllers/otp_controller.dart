@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:chopnow_new_customer_app/views/auth/create_account/widget/login_pin.dart';
-import 'package:chopnow_new_customer_app/views/auth/create_account/widget/otp_page.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
+import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/common/size.dart';
 import 'package:chopnow_new_customer_app/views/models/api_error.dart';
 import 'package:chopnow_new_customer_app/views/models/otp_success_model.dart';
@@ -23,19 +24,18 @@ class OtpController extends GetxController {
     _isLoading.value = value;
   }
 
-  var otp = List.generate(6, (index) => ''.obs).obs;
+  var errorMessage = "".obs;
+  var isOtpWrong = false.obs;
+  var otp = List.generate(4, (index) => ''.obs).obs;
   var canResend = false.obs;
   var countdown = 60.obs;
+  var otpError = List.generate(4, (index) => false.obs).obs;
 
   late TextEditingController otp1Controller,
       otp2Controller,
       otp3Controller,
-      otp4Controller,
-      otp5Controller,
-      otp6Controller;
-
+      otp4Controller;
   late List<FocusNode> focusNodes;
-
   late Timer _timer;
 
   @override
@@ -45,9 +45,7 @@ class OtpController extends GetxController {
     otp2Controller = TextEditingController();
     otp3Controller = TextEditingController();
     otp4Controller = TextEditingController();
-    otp5Controller = TextEditingController();
-    otp6Controller = TextEditingController();
-    focusNodes = List.generate(6, (_) => FocusNode());
+    focusNodes = List.generate(4, (_) => FocusNode());
     startTimer();
   }
 
@@ -57,8 +55,6 @@ class OtpController extends GetxController {
     otp2Controller.dispose();
     otp3Controller.dispose();
     otp4Controller.dispose();
-    otp5Controller.dispose();
-    otp6Controller.dispose();
     for (var node in focusNodes) {
       node.dispose();
     }
@@ -66,10 +62,10 @@ class OtpController extends GetxController {
   }
 
   void handleOTPInput(String value, int index) {
-    if (value.isNotEmpty && index < 5) {
+    if (value.isNotEmpty && index < 3) {
       otp[index].value = value;
       focusNodes[index + 1].requestFocus();
-    } else if (index == 5 && value.isNotEmpty) {
+    } else if (index == 3 && value.isNotEmpty) {
       otp[index].value = value;
       submitOTP();
     } else if (value.isEmpty && index > 0) {
@@ -87,19 +83,18 @@ class OtpController extends GetxController {
   void clearOTP() {
     for (var i = 0; i < otp.length; i++) {
       otp[i].value = '';
+      otpError[i].value = false;
     }
     otp1Controller.clear();
     otp2Controller.clear();
     otp3Controller.clear();
     otp4Controller.clear();
-    otp5Controller.clear();
-    otp6Controller.clear();
     focusNodes[0].requestFocus();
   }
 
   void submitOTP() async {
     String fullOTP = otp.map((e) => e.value).join();
-    if (fullOTP.length == 6) {
+    if (fullOTP.length == 4) {
       setLoading = true;
 
       // Retrieve user data from storage
@@ -109,7 +104,8 @@ class OtpController extends GetxController {
         'otp': fullOTP,
       });
 
-      Uri url = Uri.parse("$appBaseUrl/api/users/verify-phone/$userID/$fullOTP");
+      Uri url =
+          Uri.parse("$appBaseUrl/api/users/verify-phone/$userID/$fullOTP");
       Map<String, String> headers = {'Content-Type': 'application/json'};
 
       try {
@@ -121,43 +117,52 @@ class OtpController extends GetxController {
           String userId = responseData.id;
           var user = jsonEncode(responseData);
 
-        // Save data to GetStorage
-        box.write(userId, user);
-        box.write('firstName', responseData.firstName);
-        box.write('lastName', responseData.lastName);
-        box.write('email', responseData.email);
-        box.write('phone', responseData.phone);
-        box.write('token', responseData.userToken);
-        box.write('verification', responseData.phoneVerification);
-
-
+          // Save data to GetStorage
+          box.write(userId, user);
+          box.write('firstName', responseData.firstName);
+          box.write('lastName', responseData.lastName);
+          box.write('email', responseData.email);
+          box.write('phone', responseData.phone);
+          box.write('token', responseData.userToken);
+          box.write('verification', responseData.phoneVerification);
 
           setLoading = false;
+          isOtpWrong.value = false;
           Get.offAll(() => const PinLoginPage(),
               transition: Transition.fadeIn,
               duration: const Duration(milliseconds: 700));
         } else {
+          isOtpWrong.value = true;
           var error = apiErrorFromJson(response.body);
-          Get.defaultDialog(
-            backgroundColor: Tcolor.White,
-            title: "Verification Failed",
-            titleStyle: TextStyle(
-                fontSize: 28.sp,
-                fontWeight: FontWeight.w600,
-                color: Tcolor.TEXT_Placeholder),
-            middleText: error.message,
-            middleTextStyle: TextStyle(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w400,
-                color: Tcolor.TEXT_Label),
-            textConfirm: "OK",
-            onConfirm: () {
-              Get.back();
-            },
-            barrierDismissible: false,
-            confirmTextColor: Tcolor.Text,
-            buttonColor: Tcolor.TEXT_Label,
-          );
+          final responseData = jsonDecode(response.body);
+          errorMessage.value = responseData['message'];
+
+          // Get.defaultDialog(
+          //   backgroundColor: Tcolor.White,
+          //   title: "Verification Failed",
+          //   titleStyle: TextStyle(
+          //       fontSize: 28.sp,
+          //       fontWeight: FontWeight.w600,
+          //       color: Tcolor.TEXT_Placeholder),
+          //   middleText: error.message,
+          //   middleTextStyle: TextStyle(
+          //       fontSize: 20.sp,
+          //       fontWeight: FontWeight.w400,
+          //       color: Tcolor.TEXT_Label),
+          //   textConfirm: "OK",
+          //   onConfirm: () {
+          //     Get.back();
+          //   },
+          //   barrierDismissible: false,
+          //   confirmTextColor: Tcolor.Text,
+          //   buttonColor: Tcolor.TEXT_Label,
+          // );
+
+          // Set error state
+          for (var i = 0; i < otp.length; i++) {
+            otpError[i].value = true;
+          }
+
           setLoading = false;
         }
       } catch (e) {
@@ -180,8 +185,76 @@ class OtpController extends GetxController {
     });
   }
 
-  void resendCode() {
+  void resendCode() async {
     // Logic to resend the code
-    startTimer(); // Restart the timer
+    setLoading = true;
+
+    // Retrieve user data from storage
+    var userID = box.read('userID');
+    var data = jsonEncode({
+      'user_id': userID,
+    });
+
+    Uri url = Uri.parse("$appBaseUrl/resend-otp/$userID");
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    try {
+      var response = await http.post(url, headers: headers);
+      print(response.body);
+      if (response.statusCode == 201) {
+        Get.snackbar(
+          "",
+          "",
+          duration: const Duration(seconds: 3),
+          backgroundColor: Tcolor.BACKGROUND_Regaular,
+          titleText: ReuseableText(
+            title: "Otp Resent",
+            style: TextStyle(
+                fontSize: 28.sp,
+                color: Tcolor.Text,
+                fontWeight: FontWeight.w600),
+          ),
+          messageText: ReuseableText(
+            title: "a new one time pin as been sent to your number.",
+            style: TextStyle(
+                fontSize: 20.sp,
+                color: Tcolor.Text_Secondary,
+                fontWeight: FontWeight.w600),
+          ) 
+        );
+        setLoading = false;
+      } else {
+        var error = jsonDecode(response.body);
+        errorMessage.value = error.message;
+
+        Get.defaultDialog(
+          backgroundColor: Tcolor.White,
+          title: "Verification Failed",
+          titleStyle: TextStyle(
+              fontSize: 28.sp,
+              fontWeight: FontWeight.w600,
+              color: Tcolor.TEXT_Placeholder),
+          middleText: error.message,
+          middleTextStyle: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w400,
+              color: Tcolor.TEXT_Label),
+          textConfirm: "OK",
+          onConfirm: () {
+            Get.back();
+          },
+          barrierDismissible: false,
+          confirmTextColor: Tcolor.Text,
+          buttonColor: Tcolor.TEXT_Label,
+        );
+
+        // Set error state
+
+        setLoading = false;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      setLoading = false;
+    }
   }
 }

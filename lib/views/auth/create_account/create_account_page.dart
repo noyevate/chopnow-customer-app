@@ -33,12 +33,7 @@ class _CreateAccountState extends State<CreateAccount> {
     super.dispose();
   }
 
-  void printY(String first, String last, String email, String phone) {
-    print(first);
-    print(last);
-    print(email);
-    print(phone);
-  }
+
 
   @override
   Widget build(BuildContext context) {

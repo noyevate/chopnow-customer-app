@@ -5,6 +5,7 @@ import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/size.dart';
 import 'package:chopnow_new_customer_app/views/models/api_error.dart';
 import 'package:chopnow_new_customer_app/views/models/otp_success_model.dart';
+import 'package:chopnow_new_customer_app/views/models/set_pin_model.dart';
 import 'package:chopnow_new_customer_app/views/models/success_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,10 +59,17 @@ class PinLoginController extends GetxController {
 
       try {
         var response = await http.post(url, headers: headers, body: data);
-        print(response.body);
         if (response.statusCode == 201) {
-          var responseData = successModelFromJson(response.body);
+          SetPinResponseModel responseData = setPinResponseModelFromJson(response.body);
+
+          
+          String userData = jsonEncode(responseData);
+
+          
+          box.write("token", responseData.token);
+          
           setLoading = false;
+
           Get.offAll(() => const Location(), transition: Transition.fade, duration: const Duration(milliseconds: 700));
           
         } else {

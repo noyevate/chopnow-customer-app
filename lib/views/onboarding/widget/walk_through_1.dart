@@ -13,7 +13,7 @@ class WalkThrough1 extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      color: Tcolor.SECONDARY_S4,
+      color: Tcolor.White,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -80,7 +80,7 @@ class WalkThrough1 extends StatelessWidget {
                   ReuseableText(
                     title: "Welcome to",
                     style: TextStyle(
-                      color: Tcolor.Primary_New,
+                      color: Tcolor.Text,
                       fontSize: 90.sp,
                       fontWeight: FontWeight.w900,
                     ),
@@ -88,7 +88,7 @@ class WalkThrough1 extends StatelessWidget {
                   ReuseableText(
                     title: "ChopNow!",
                     style: TextStyle(
-                      color: Tcolor.Primary_New,
+                      color: Tcolor.Text,
                       fontSize: 90.sp,
                       fontWeight: FontWeight.w900,
                     ),
@@ -99,7 +99,7 @@ class WalkThrough1 extends StatelessWidget {
                   ReuseableText(
                     title: "We connect you with your favorite restaurants",
                     style: TextStyle(
-                        color: Tcolor.Primary_New,
+                        color: Tcolor.TEXT_Body,
                         fontSize: 28.sp,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 2.5.sp),
@@ -107,7 +107,7 @@ class WalkThrough1 extends StatelessWidget {
                   ReuseableText(
                     title: "so you can enjoy a wide variety of meals",
                     style: TextStyle(
-                        color: Tcolor.Primary_New,
+                        color: Tcolor.TEXT_Body,
                         fontSize: 28.sp,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 2.5.sp),
@@ -115,7 +115,7 @@ class WalkThrough1 extends StatelessWidget {
                   ReuseableText(
                     title: "without ever leaving your couch.",
                     style: TextStyle(
-                        color: Tcolor.Primary_New,
+                        color: Tcolor.TEXT_Body,
                         fontSize: 28.sp,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 2.5.sp),

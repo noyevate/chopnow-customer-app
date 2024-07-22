@@ -1,6 +1,7 @@
 import 'package:chopnow_new_customer_app/views/auth/create_account/create_account_page.dart';
 import 'package:chopnow_new_customer_app/views/auth/create_account/widget/location.dart';
 import 'package:chopnow_new_customer_app/views/auth/login/login_page.dart';
+import 'package:chopnow_new_customer_app/views/auth/login/login_page_view.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/custom_button.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
@@ -105,7 +106,7 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                   fontSize: 32.sp,
                   border: Border.all(color: Tcolor.BORDER_Regular),
                   onTap: () {
-                    Get.to(() => const LoginPage(),
+                    Get.to(() => const LoginPageView(),
                         transition: Transition.rightToLeft,
                         duration: const Duration(milliseconds: 700));
                   },

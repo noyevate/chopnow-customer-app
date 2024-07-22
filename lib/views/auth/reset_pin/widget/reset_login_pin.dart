@@ -62,7 +62,7 @@ class ResetLoginPinWidget extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => const ResetPinPage(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                  // Get.to(() => const ResetPinPage(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
                 },
                 child: ReuseableText(title: "Forgot PIN?", style: TextStyle(color: Tcolor.PRIMARY_S4, fontSize: 32.sp, fontWeight: FontWeight.w500)),
               ),

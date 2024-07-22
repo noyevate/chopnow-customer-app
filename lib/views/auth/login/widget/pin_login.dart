@@ -1,11 +1,14 @@
+ import 'package:chopnow_new_customer_app/views/auth/reset_pin/forgot_pin_page_view.dart';
 import 'package:chopnow_new_customer_app/views/auth/reset_pin/reset_pin_page.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:heroicons_flutter/heroicons_flutter.dart';
 
 class LoginPinPage extends StatelessWidget {
   const LoginPinPage({super.key});
@@ -17,20 +20,22 @@ class LoginPinPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
+        padding: EdgeInsets.only(left: 20.w, right: 20.w),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 80.h), // Space at the top
+             SizedBox(height: 40.h), // Space at the top
             ReuseableText(
-              title: "Protect your account with a PIN",
+              title: "Login PIN",
               style: TextStyle(
                 fontSize: 40.sp,
                 fontWeight: FontWeight.w600,
                 color: Tcolor.Text,
               ),
             ),
-            Text(
-              "Enter a secret PIN to protect your account.",
+            SizedBox(height: 20.h),
+            ReuseableText(
+              title:"Enter your PIN to login to your account.",
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w400,
@@ -62,7 +67,7 @@ class LoginPinPage extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => const ResetPinPage(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                  Get.to(() => const ForgotPinPageView(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
                 },
                 child: ReuseableText(title: "Forgot PIN?", style: TextStyle(color: Tcolor.PRIMARY_S4, fontSize: 32.sp, fontWeight: FontWeight.w500)),
               ),
@@ -129,7 +134,7 @@ class PinPad extends StatelessWidget {
         SizedBox(height: 40.h), // Space between rows
         _buildRow(['7', '8', '9']),
         SizedBox(height: 40.h), // Space between rows
-        _buildRow([null, '0', Icons.cancel]),
+        _buildRow([null, '0', HeroiconsSolid.backspace]),
       ],
     );
   }
@@ -147,7 +152,7 @@ class PinPad extends StatelessWidget {
           onPress: () {
             if (button is String) {
               onKeyPress(button);
-            } else if (button == Icons.cancel) {
+            } else if (button == HeroiconsSolid.backspace) {
               onClear();
             }
           },
@@ -184,8 +189,8 @@ class __PinButtonState extends State<_PinButton> {
         width: 100.h,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          shape: widget.icon == Icons.cancel ? BoxShape.rectangle : BoxShape.circle,
-          borderRadius: widget.icon == Icons.cancel ? BorderRadius.circular(8.r) : null,
+          shape: widget.icon == HeroiconsSolid.backspace ? BoxShape.rectangle : BoxShape.circle,
+          borderRadius: widget.icon == HeroiconsSolid.backspace ? BorderRadius.circular(8.r) : null,
           color: _isPressed ? Tcolor.White.withOpacity(0.9) : Tcolor.White,
           boxShadow: _isPressed
               ? [
@@ -197,7 +202,7 @@ class __PinButtonState extends State<_PinButton> {
                   ),
                 ]
               : [],
-          border: widget.icon == Icons.cancel
+          border: widget.icon == HeroiconsSolid.backspace
               ? Border.all(color: Colors.transparent, width: 0)
               : Border.all(color: Tcolor.BORDER_Light, width: 1.5),
         ),
@@ -215,7 +220,7 @@ class __PinButtonState extends State<_PinButton> {
             : Icon(
                 widget.icon,
                 size: 28.sp,
-                color: Tcolor.Text,
+                color: Tcolor.TEXT_Placeholder,
               ),
       ),
     );
