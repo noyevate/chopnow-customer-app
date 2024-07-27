@@ -10,12 +10,23 @@ import 'package:heroicons_flutter/heroicons_flutter.dart';
 import '../../../common/o_t_p_field.dart';
 
 class OTPPage extends StatelessWidget {
-  const OTPPage({super.key});
+  const OTPPage({super.key, required this.phoneNumber});
+
+  final String phoneNumber;
+
+  String getObscuredPhoneNumber(String phoneNumber) {
+    if (phoneNumber.length >= 7) {
+      return phoneNumber.replaceRange(5, phoneNumber.length - 3, '*' * (phoneNumber.length - 6));
+    } else {
+      return phoneNumber; // Handle case for short phone numbers if necessary
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final OtpController controller = Get.put(OtpController());
     final CreateAccountController accountController = Get.put(CreateAccountController());
+    String obscuredPhoneNumber = getObscuredPhoneNumber(phoneNumber);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -60,7 +71,7 @@ class OTPPage extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             ReuseableText(
-              title: "Enter the 4-digit code sent to 080***321 to verify your.",
+              title: "Enter the 4-digit code sent to $obscuredPhoneNumber to reset your PIN.",
               style: TextStyle(
                 fontSize: 24.sp,
                 color: Tcolor.TEXT_Label,

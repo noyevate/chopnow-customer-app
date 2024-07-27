@@ -8,12 +8,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get_storage/get_storage.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+     final first_name = box.read("first_name");
 
     return Container(
       width: double.infinity,
@@ -40,7 +43,7 @@ class CustomAppBar extends StatelessWidget {
                 children: [
                   
                   ReuseableText(
-                    title: "${getTimeOfDay()}, Nathaniel",
+                    title: "${getTimeOfDay()} $first_name",
                     style: TextStyle(
                       color: Tcolor.Text,
                       fontSize: 32.sp,

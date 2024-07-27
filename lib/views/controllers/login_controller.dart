@@ -92,6 +92,8 @@ class LoginController extends GetxController {
           box.write("token", data.token);
           box.write("userId", data.id);
           box.write("verification", data.phoneVerification);
+          box.write("first_name", data.firstName);
+          box.write("last_name", data.lastName);
           setLoading = false;
           
           Get.to(() => const MainScreen(), transition: Transition.fadeIn, duration:  const Duration(milliseconds: 700));
@@ -126,5 +128,10 @@ class LoginController extends GetxController {
         debugPrint(e.toString());
       }
     }
+  }
+
+  void logout() {
+    box.erase();
+    Get.offAll(() => MainScreen());
   }
 }

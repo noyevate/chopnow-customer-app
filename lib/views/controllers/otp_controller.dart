@@ -208,7 +208,7 @@ class OtpController extends GetxController {
           duration: const Duration(seconds: 3),
           backgroundColor: Tcolor.BACKGROUND_Regaular,
           titleText: ReuseableText(
-            title: "Otp Resent",
+            title: "Otp Sent",
             style: TextStyle(
                 fontSize: 28.sp,
                 color: Tcolor.Text,

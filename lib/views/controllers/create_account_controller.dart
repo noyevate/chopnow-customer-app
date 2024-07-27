@@ -111,8 +111,9 @@ class CreateAccountController extends GetxController {
         box.write('phone', user['phone']);
 
         setLoading = false;
+        String number = box.read("phone");
         
-        Get.to(() => const OTPPage());
+        Get.to(() =>  OTPPage(phoneNumber: number,));
       } else {
         var error = apiErrorFromJson(response.body);
         Get.defaultDialog(

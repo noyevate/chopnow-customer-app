@@ -3,6 +3,7 @@ import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/custom_bottom_bar.dart';
 import 'package:chopnow_new_customer_app/views/home/home.dart';
 import 'package:chopnow_new_customer_app/views/profile/profile.dart';
+import 'package:chopnow_new_customer_app/views/profile/widget/profile_details.dart';
 import 'package:chopnow_new_customer_app/views/search/search.dart';
 import 'package:chopnow_new_customer_app/views/support/support.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,8 @@ class _MainScreenState extends State<MainScreen> {
     SearchPage(),
     CartPage(),
     SupportPage(),
-    ProfilePage()
+    ProfilePage(),
+    ProfileDetails(),
   ];
 
   void _onNavItemTapped(int index) {

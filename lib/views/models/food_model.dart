@@ -123,7 +123,7 @@ class Additive {
 
 class Option {
     final String name;
-    final String price;
+    final int price;
 
     Option({
         required this.name,

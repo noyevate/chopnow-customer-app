@@ -74,8 +74,8 @@ class _RestaurantPageTestState extends State<RestaurantPageTest>
                     child: Row(
                       children: [
                         Container(
-                          width: 70.w,
-                          height: 70.h,
+                          width: 60.w,
+                          height: 60.h,
                           decoration: BoxDecoration(
                             color: Tcolor.BACKGROUND_Dark,
                             shape: BoxShape.circle,
@@ -83,7 +83,7 @@ class _RestaurantPageTestState extends State<RestaurantPageTest>
                           child: Icon(
                             HeroiconsOutline.arrowLeft,
                             color: Tcolor.Text,
-                            size: 45.sp,
+                            size: 28.sp,
                           ),
                         ),
                          // Add some space between the icon and the text

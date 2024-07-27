@@ -1,4 +1,3 @@
-import 'package:chopnow_new_customer_app/views/auth/create_account/widget/otp_page.dart';
 import 'package:chopnow_new_customer_app/views/auth/widget/field_widget.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/custom_button.dart';
