@@ -94,9 +94,10 @@ class LoginController extends GetxController {
           box.write("verification", data.phoneVerification);
           box.write("first_name", data.firstName);
           box.write("last_name", data.lastName);
+          box.write("phone", data.phone);
           setLoading = false;
           
-          Get.to(() => const MainScreen(), transition: Transition.fadeIn, duration:  const Duration(milliseconds: 700));
+          Get.offAll(() => const MainScreen(), transition: Transition.fadeIn, duration:  const Duration(milliseconds: 700));
         } else {
           
           var error = apiErrorFromJson(response.body);

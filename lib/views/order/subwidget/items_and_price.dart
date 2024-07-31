@@ -1,0 +1,70 @@
+import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
+import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
+import 'package:chopnow_new_customer_app/views/common/size.dart';
+import 'package:chopnow_new_customer_app/views/controllers/food_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class ItemsAndPrice extends StatelessWidget {
+  const ItemsAndPrice({
+    super.key,
+    required this.selectedItems,
+  });
+
+  final List<SelectedItem> selectedItems;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: selectedItems.length,
+      itemBuilder: (context, index) {
+        final item = selectedItems[index];
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          child: Container(
+            color: Tcolor.White,
+            height: 90.h,
+            width: width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ReuseableText(
+                      title: item.name,
+                      style: TextStyle(
+                        fontSize: 28.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Tcolor.TEXT_Body,
+                      ),
+                    ),
+                    ReuseableText(
+                      title: "x${item.quantity}",
+                      style: TextStyle(
+                        fontSize: 28.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Tcolor.TEXT_Body,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10.h),
+                ReuseableText(
+                  title: "${item.price}",
+                  style: TextStyle(
+                    fontSize: 28.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Tcolor.TEXT_Label,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

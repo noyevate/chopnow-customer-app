@@ -1,17 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
-import 'package:chopnow_new_customer_app/views/common/custom_button.dart';
 import 'package:chopnow_new_customer_app/views/common/custom_circular_checkbox.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/common/row_icon.dart';
-import 'package:chopnow_new_customer_app/views/common/size.dart';
 import 'package:chopnow_new_customer_app/views/controllers/food_controller.dart';
 import 'package:chopnow_new_customer_app/views/models/food_model.dart';
+import 'package:chopnow_new_customer_app/views/order/widget/checkout_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:heroicons_flutter/heroicons_flutter.dart';
 
 class FoodPage extends StatefulWidget {
@@ -25,6 +23,8 @@ class FoodPage extends StatefulWidget {
 
 class _FoodPageState extends State<FoodPage> {
   final Map<String, bool> _isChecked = {};
+  
+  get food => null;
 
   @override
   void initState() {
@@ -86,19 +86,17 @@ class _FoodPageState extends State<FoodPage> {
                       padding: EdgeInsets.only(top: 30.h, right: 30.w),
                       child: GestureDetector(
                         onTap: () {
+                          controller.resetSelections();
                           Get.back();
                         },
                         child: Container(
-                          height: 70.h,
-                          width: 70.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100.r),
-                            color: Tcolor.BACKGROUND_Dark
-                          ),
-                          child: Icon(HeroiconsOutline.xMark, color: Tcolor.Text,
-                                size: 24.sp)
-                          
-                        ),
+                            height: 70.h,
+                            width: 70.h,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100.r),
+                                color: Tcolor.BACKGROUND_Dark),
+                            child: Icon(HeroiconsOutline.xMark,
+                                color: Tcolor.Text, size: 24.sp)),
                       ),
                     ),
                   ),
@@ -192,6 +190,7 @@ class _FoodPageState extends State<FoodPage> {
                             ),
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               GestureDetector(
                                 onTap: () {
@@ -204,18 +203,18 @@ class _FoodPageState extends State<FoodPage> {
                                 ),
                               ),
                               Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 25.w),
-                                  child: Obx(
-                                    () => ReuseableText(
-                                      title: "${controller.count.value}",
-                                      style: TextStyle(
-                                        fontSize: 30.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: Tcolor.TEXT_Body,
-                                      ),
+                                padding: EdgeInsets.symmetric(horizontal: 25.w),
+                                child: Obx(
+                                  () => ReuseableText(
+                                    title: "${controller.count.value}",
+                                    style: TextStyle(
+                                      fontSize: 30.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: Tcolor.TEXT_Body,
                                     ),
-                                  )),
+                                  ),
+                                ),
+                              ),
                               GestureDetector(
                                 onTap: () {
                                   controller.increment();
@@ -227,19 +226,20 @@ class _FoodPageState extends State<FoodPage> {
                                 ),
                               ),
                               Padding(
-                                  padding: EdgeInsets.only(left: 80.w),
-                                  child: Obx(
-                                    () => ReuseableText(
-                                      title:
-                                          "\u20A6 ${widget.food!.price * controller.count.value}",
-                                      style: TextStyle(
-                                        color: Tcolor.TEXT_Label,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 28.sp,
-                                        decoration: TextDecoration.none,
-                                      ),
+                                padding: EdgeInsets.only(left: 80.w),
+                                child: Obx(
+                                  () => ReuseableText(
+                                    title:
+                                        "\u20A6 ${widget.food!.price * controller.count.value}",
+                                    style: TextStyle(
+                                      color: Tcolor.TEXT_Label,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 28.sp,
+                                      decoration: TextDecoration.none,
                                     ),
-                                  )),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -259,14 +259,66 @@ class _FoodPageState extends State<FoodPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 // SizedBox(height: 25.h),
-                                ReuseableText(
-                                  title: additive.title,
-                                  style: TextStyle(
-                                    color: Tcolor.TEXT_Label,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 28.sp,
-                                    decoration: TextDecoration.none,
-                                  ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ReuseableText(
+                                      title: additive.title.toUpperCase(),
+                                      style: TextStyle(
+                                        color: Tcolor.TEXT_Label,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 28.sp,
+                                        decoration: TextDecoration.none,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        if (index == 0)
+                                          ReuseableText(
+                                            title: "Required",
+                                            style: TextStyle(
+                                              color: Tcolor.ERROR_Reg,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 24.sp,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        if (index != 0)
+                                          ReuseableText(
+                                            title: "Optional",
+                                            style: TextStyle(
+                                              color: Tcolor.TEXT_Label,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 24.sp,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        if (index == 0)
+                                          ReuseableText(
+                                            title: "choose a package",
+                                            style: TextStyle(
+                                              color: Tcolor.TEXT_Label,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 28.sp,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                        if (index != 0)
+                                          ReuseableText(
+                                            title:
+                                                "Choose at least 1 and add up to 5",
+                                            style: TextStyle(
+                                              color: Tcolor.TEXT_Label,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 28.sp,
+                                              decoration: TextDecoration.none,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(height: 20.h),
                                 Padding(
@@ -290,9 +342,11 @@ class _FoodPageState extends State<FoodPage> {
                                                 children: [
                                                   Row(
                                                     children: [
-                                                      
                                                       CustomCircularCheckbox(
-                                                          value: controller.isChecked["${additive.title}-${option.name}"] ?? false,
+                                                          value: controller
+                                                                      .isChecked[
+                                                                  "${additive.title}-${option.name}"] ??
+                                                              false,
                                                           onChanged:
                                                               (bool? value) {
                                                             setState(() {
@@ -306,8 +360,6 @@ class _FoodPageState extends State<FoodPage> {
                                                                     "${additive.title}-${option.name}",
                                                                     value);
                                                           }),
-
-                                                          
                                                       SizedBox(width: 10.w),
                                                       SizedBox(
                                                         width: 200.w,
@@ -334,8 +386,10 @@ class _FoodPageState extends State<FoodPage> {
                                                       ),
                                                     ],
                                                   ),
-                                                  
-                                                  SizedBox(width: 20.w,),
+
+                                                  SizedBox(
+                                                    width: 20.w,
+                                                  ),
                                                   if (index !=
                                                       0) // Hide increment and decrement options for the first object
                                                     Row(
@@ -410,56 +464,64 @@ class _FoodPageState extends State<FoodPage> {
                                                         ),
                                                       ],
                                                     ),
-                                                    if (index !=
-                                                      0) 
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: 80.w),
-                                                    child: _isChecked[option
-                                                                      .name] ==
-                                                                  true? Obx(
-                                                      () => ReuseableText(
-                                                        title:
-                                                            "\u20A6 ${controller.getOptionTotalPrice("${additive.title}-${option.name}")}",
-                                                        style: TextStyle(
-                                                          color:
-                                                              Tcolor.TEXT_Label,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          fontSize: 28.sp,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .none,
-                                                        ),
-                                                      ),
-                                                    ): 
-                                                    ReuseableText(
-                                                        title:
-                                                            "\u20A6 ${option.price}",
-                                                        style: TextStyle(
-                                                          color:
-                                                              Tcolor.TEXT_Label,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          fontSize: 28.sp,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .none,
-                                                        ),
-                                                    )
-                                                  ),
+                                                  if (index != 0)
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 80.w),
+                                                        child: _isChecked[option
+                                                                    .name] ==
+                                                                true
+                                                            ? Obx(
+                                                                () =>
+                                                                    ReuseableText(
+                                                                  title:
+                                                                      "\u20A6 ${controller.getOptionTotalPrice("${additive.title}-${option.name}")}",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Tcolor
+                                                                        .TEXT_Label,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    fontSize:
+                                                                        28.sp,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .none,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            : ReuseableText(
+                                                                title:
+                                                                    "\u20A6 ${option.price}",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Tcolor
+                                                                      .TEXT_Label,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontSize:
+                                                                      28.sp,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .none,
+                                                                ),
+                                                              )),
                                                   // if(index == 0)
                                                   if (index == 0)
-                                              ReuseableText(
-                                                title:
-                                                    "\u20A6 ${option.price.toString()}",
-                                                style: TextStyle(
-                                                  fontSize: 28.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Tcolor.TEXT_Label,
-                                                ),
-                                              ),
-
+                                                    ReuseableText(
+                                                      title:
+                                                          "\u20A6 ${option.price.toString()}",
+                                                      style: TextStyle(
+                                                        fontSize: 28.sp,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color:
+                                                            Tcolor.TEXT_Label,
+                                                      ),
+                                                    ),
                                                 ],
                                               ),
                                             ],
@@ -487,47 +549,69 @@ class _FoodPageState extends State<FoodPage> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 30.w),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40.r),
-                  topRight: Radius.circular(40.r),
-                ),
                 color: Tcolor.White,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade200,
-                    offset: Offset(-2, -5),
-                    blurRadius: 10,
-                  )
-                ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Obx(
-                    () => ReuseableText(
-                      title: "\u20A6 ${controller.totalPrice}",
-                      style: TextStyle(
-                        color: Tcolor.TEXT_Body,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 36.sp,
-                        decoration: TextDecoration.none,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 80.h,
+                        width: 200.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100.r),
+                          border: Border.all(color: Tcolor.White),
+                        ),
+                        
                       ),
-                    ),
-                  ),
-                  CustomButton(
-                    btnColor: Tcolor.Primary,
-                    title: "Add to Order",
-                    onTap: () {
-                      // Handle the add to order action
-                    
-                       
-                        print(controller.selectedItems[0].foodTitle);
-                        print(controller.selectedItems[0].foodPrice);
-                        print(controller.selectedItems[0].foodCount);
-                    //   
-                      
-                    },
-                    btnWidth: 300.w, showArrow: true,
+                      GestureDetector(
+                        onTap: () {
+                          controller.checkSelectionAndShowSnackbar();
+                          if (controller.isAnyOptionChecked()) {
+                            print(controller.selectedItems[0].foodCount);
+                            
+                            Get.to(
+                              () =>  CheckoutPage( food: controller.food, selectedItems: controller.selectedItems,),
+                              transition: Transition.leftToRightWithFade,
+                              duration: const Duration(milliseconds: 500),
+                              arguments: controller.selectedItems,
+                            );
+                          } else {
+                            
+                          }
+                        },
+                        child: Container(
+                          height: 90.h,
+                          width: 400.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.r),
+                              gradient: Tcolor.Primary_button,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Tcolor.PRIMARY_Button_Inner_Shadow,
+                                    offset: const Offset(0, -1),
+                                    blurRadius: 1.r,
+                                    spreadRadius: 0)
+                              ]),
+                          child: Center(
+                            child: Obx(
+                              () => ReuseableText(
+                                title:
+                                    "\u20A6 ${controller.totalPrice} | Add to cart ",
+                                style: TextStyle(
+                                  color: Tcolor.Text,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 28.sp,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),
@@ -538,24 +622,6 @@ class _FoodPageState extends State<FoodPage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
@@ -1018,45 +1084,3 @@ class _FoodPageState extends State<FoodPage> {
 //     );
 //   }
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

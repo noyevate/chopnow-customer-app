@@ -21,10 +21,13 @@ class NewTasteWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // showModalBottomSheet(
+        //   isDismissible: false,
+        //   enableDrag: false,
         //   context: context,
         //   isScrollControlled: true,
         //   backgroundColor: Colors.transparent, // Make the background transparent
         //   builder: (context) => FoodPage(food: food,)
+
         // );
 
         Get.to(() => FoodPage(food: food,));
