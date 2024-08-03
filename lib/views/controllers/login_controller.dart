@@ -95,6 +95,7 @@ class LoginController extends GetxController {
           box.write("first_name", data.firstName);
           box.write("last_name", data.lastName);
           box.write("phone", data.phone);
+          box.write("email", data.email);
           setLoading = false;
           
           Get.offAll(() => const MainScreen(), transition: Transition.fadeIn, duration:  const Duration(milliseconds: 700));

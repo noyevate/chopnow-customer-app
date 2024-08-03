@@ -1,3 +1,4 @@
+import 'package:chopnow_new_customer_app/views/models/cart_request.dart';
 import 'package:chopnow_new_customer_app/views/models/food_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -182,7 +183,10 @@ class FoodController extends GetxController {
     count.value = 1;
     updateTotalPrice();
   }
+  
+  
 }
+
 
 class SelectedItem {
   final String foodTitle; // New field

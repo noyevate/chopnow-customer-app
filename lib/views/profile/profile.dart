@@ -1,3 +1,4 @@
+import 'package:chopnow_new_customer_app/views/common/capitalized_text.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/profile/widget/addresses.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:heroicons_flutter/heroicons_flutter.dart';
 
 import 'widget/profile_tile.dart';
@@ -18,15 +20,19 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+    final firstName = box.read('first_name');
+    final lastName = box.read('last_name');
+    final phone = box.read('phone');
     return Scaffold(
         body: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ProfileUserWidget(
+           ProfileUserWidget(
             image: 'assets/img/bottombar_profile.png',
-            title: 'Nathaniel Adenuga',
-            phone: '+2348156689091',
+            title: "${capitalizeFirstLetter(firstName)} ${capitalizeFirstLetter(lastName)}",
+            phone: "$phone",
           ),
           SizedBox(height: 40.h),
           Padding(

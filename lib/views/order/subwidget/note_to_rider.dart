@@ -67,7 +67,11 @@ class NoteToRider extends StatelessWidget {
             ),
             const Spacer(), // This pushes the button to the bottom
             CustomButton(
-              onTap: () {},
+              onTap: () {
+                controller.riderNote.value = controller.noteToRider.text;
+                
+                Get.back();
+              },
               title: "Save note",
               showArrow: false,
               btnHeight: 96.sp,

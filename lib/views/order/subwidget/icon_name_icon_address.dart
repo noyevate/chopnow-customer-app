@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class IconNameIcon extends StatelessWidget {
-  const IconNameIcon({
+class IconNameIconAddress extends StatelessWidget {
+  const IconNameIconAddress({
     super.key, required this.name, required this.icon, required this.icon2, this.color,
     
   });

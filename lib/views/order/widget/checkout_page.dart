@@ -1,12 +1,21 @@
+// import 'dart:ffi';
+
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
-import 'package:chopnow_new_customer_app/views/common/custom_button.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/common/size.dart';
+import 'package:chopnow_new_customer_app/views/common/uidata.dart';
 import 'package:chopnow_new_customer_app/views/controllers/checkout_controller.dart';
 import 'package:chopnow_new_customer_app/views/controllers/food_controller.dart';
 import 'package:chopnow_new_customer_app/views/models/food_model.dart';
+import 'package:chopnow_new_customer_app/views/models/order_request.dart'
+    as order;
+import 'package:chopnow_new_customer_app/views/models/single_restaurant_model.dart';
+
+import 'package:chopnow_new_customer_app/views/order/subwidget/icon_name_e_widget2.dart';
+import 'package:chopnow_new_customer_app/views/order/subwidget/icon_name_widget1.dart';
 import 'package:chopnow_new_customer_app/views/order/subwidget/note_to_rider.dart';
 import 'package:chopnow_new_customer_app/views/order/subwidget/note_to_store.dart';
+import 'package:chopnow_new_customer_app/views/order/widget/confirm_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,11 +25,9 @@ import 'package:heroicons_flutter/heroicons_flutter.dart';
 
 import '../subwidget/add_pack.dart';
 import '../subwidget/delivery_information_widget.dart';
-import '../subwidget/icon_name_icon.dart';
 import '../subwidget/items_and_price.dart';
 import '../subwidget/restaurant_logo_name.dart';
 import '../subwidget/checkout_row.dart';
-import '../subwidget/tezt_widget.dart';
 
 void showCustomBottomSheet(
     BuildContext context, Widget content, double height) {
@@ -47,15 +54,18 @@ void showCustomBottomSheet(
 }
 
 class CheckoutPage extends HookWidget {
-  const CheckoutPage({super.key, this.food, required this.selectedItems});
-  final FoodModel? food;
+  const CheckoutPage(
+      {super.key, required this.food, required this.selectedItems});
+  final FoodModel food;
   final List<SelectedItem> selectedItems;
 
   @override
   Widget build(BuildContext context) {
     // final List<SelectedItem> selectedItems = Get.arguments;
     final CheckoutController controller = Get.put(CheckoutController());
+    final foodController = Get.put(FoodController(food));
     final packs = useState<List<int>>([1]);
+    final restaurant = useState<SingleRestaurantModel?>(null);
 
     int _calculateTotalPrice() {
       int total = 0;
@@ -65,7 +75,7 @@ class CheckoutPage extends HookWidget {
       }
 
       if (selectedItems.isNotEmpty) {
-        total += selectedItems[0].foodCount * selectedItems[0].foodPrice;
+        total += selectedItems[0].foodPrice;
       }
 
       return total;
@@ -152,7 +162,14 @@ class CheckoutPage extends HookWidget {
                   SizedBox(height: 30.w),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30.w),
-                    child: RestaurantLogo_name(food: food),
+                    child: RestaurantLogoName(
+                      food: food,
+                      onRestaurantFetched: (fetchedRestaurant) {
+                        WidgetsBinding.instance.addPostFrameCallback((__) {
+                          restaurant.value = fetchedRestaurant;
+                        });
+                      },
+                    ),
                   ),
                   SizedBox(height: 20.h),
                   for (int packNumber in packs.value)
@@ -316,7 +333,7 @@ class CheckoutPage extends HookWidget {
                               1400.h, // Set the height for this bottom sheet
                             );
                           },
-                          child: IconNameIcon(
+                          child: IconNameIcon2(
                             name: "Note to store",
                             icon: HeroiconsOutline.buildingStorefront,
                             icon2: HeroiconsOutline.chevronRight,
@@ -332,7 +349,7 @@ class CheckoutPage extends HookWidget {
                               1400.h, // Set the height for this bottom sheet
                             );
                           },
-                          child: IconNameIcon(
+                          child: IconNameIcon1(
                             name: "Note to rider",
                             icon: Icons.delivery_dining_outlined,
                             icon2: HeroiconsOutline.chevronRight,
@@ -352,7 +369,46 @@ class CheckoutPage extends HookWidget {
                 color: Tcolor.White,
               ),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  var item = order.OrderItem(
+                    foodId: food.id,
+                    instruction: controller.noToRestaurant.text,
+                    additives: selectedItems
+                        .map(
+                          (item) => order.Additive(
+                              foodTitle: selectedItems[0].foodTitle,
+                              foodPrice: selectedItems[0].foodPrice,
+                              foodCount: selectedItems[0].foodCount,
+                              name: item.name,
+                              price: item.price,
+                              quantity: item.quantity,
+                              packCount: item.packCount),
+                        )
+                        .toList(),
+                  );
+                  print(restaurant.value);
+                  Get.to(
+                      () => ConfirmOrder(
+                            foodTitle: selectedItems[0].foodTitle,
+                            foodCount: selectedItems[0].foodCount,
+                            foodprice: selectedItems[0].foodPrice,
+                            selectedItems: selectedItems,
+                            food: food,
+                            totalPrice:
+                                _calculateTotalPrice() * packs.value.length,
+                            restaurant: restaurant.value,
+                            item: item,
+                            
+                          ),
+                      arguments: {
+                        'selectedItems': selectedItems,
+                        'packCount': packs.value.length,
+                        'totalPrice':
+                            _calculateTotalPrice() * packs.value.length,
+                      },
+                      transition: Transition.leftToRightWithFade,
+                      duration: const Duration(milliseconds: 700));
+                },
                 child: Container(
                   height: 90.h,
                   width: width,
@@ -383,7 +439,8 @@ class CheckoutPage extends HookWidget {
                           ),
                         ),
                         ReuseableText(
-                          title: "\u20A6 ${_calculateTotalPrice()} ",
+                          title:
+                              "\u20A6 ${_calculateTotalPrice() * packs.value.length} ",
                           style: TextStyle(
                             color: Tcolor.Text,
                             fontWeight: FontWeight.w500,

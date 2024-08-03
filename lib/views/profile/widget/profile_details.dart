@@ -4,7 +4,6 @@ import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart'
 import 'package:chopnow_new_customer_app/views/profile/widget/current_profile_pin.dart';
 import 'package:chopnow_new_customer_app/views/profile/widget/name_bottomshet.dart';
 import 'package:chopnow_new_customer_app/views/profile/widget/phone_profile_bottomsheet.dart';
-import 'package:chopnow_new_customer_app/views/profile/widget/profile_pin.dart';
 import 'package:chopnow_new_customer_app/views/profile/widget/profile_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

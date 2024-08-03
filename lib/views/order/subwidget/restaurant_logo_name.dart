@@ -8,14 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class RestaurantLogo_name extends HookWidget {
-  const RestaurantLogo_name({
+class RestaurantLogoName extends HookWidget {
+  const RestaurantLogoName({
     super.key,
     this.food,
+    required this.onRestaurantFetched,
   });
 
-  // final SingleRestaurantModel? restaurant;
   final FoodModel? food;
+  final Function(SingleRestaurantModel) onRestaurantFetched;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,10 @@ class RestaurantLogo_name extends HookWidget {
     final SingleRestaurantModel? restaurant = hookResult.data;
     final bool isLoading = hookResult.isLoading;
     final Exception? error = hookResult.error;
+
+    if (restaurant != null) {
+      onRestaurantFetched(restaurant);
+    }
 
     return isLoading
         ? Container(
@@ -33,7 +38,7 @@ class RestaurantLogo_name extends HookWidget {
                 color: Tcolor.White,
                 child: Center(
                     child: ReuseableText(
-                  title: 'No restaurnt logo avalabe available',
+                  title: 'No restaurant logo available',
                   style: TextStyle(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.w500,

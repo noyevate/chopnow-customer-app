@@ -67,7 +67,11 @@ class NoteToStore extends StatelessWidget {
             ),
             const Spacer(), // This pushes the button to the bottom
             CustomButton(
-              onTap: (){},
+              onTap: (){
+                controller.restaurantNote.value = controller.noToRestaurant.text;
+                
+                Get.back();
+              },
               title: "Save note",
               showArrow: false,
               btnHeight: 96.sp,
