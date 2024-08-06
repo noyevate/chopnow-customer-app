@@ -2,7 +2,9 @@ import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/custom_button.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/common/size.dart';
+import 'package:chopnow_new_customer_app/views/order/order_tracking_widgets/processing_order.dart';
 import 'package:chopnow_new_customer_app/views/order/subwidget/success_lottie.dart';
+import 'package:chopnow_new_customer_app/views/order/widget/track_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -101,6 +103,7 @@ class CompletedPayment extends StatelessWidget {
                     padding: EdgeInsets.only( bottom: 30.h),
                     child: CustomButton(
                       onTap: (){
+                        Get.off(() => const TrackingProcessingOrder());
                        
                       },
                       title: "View order",

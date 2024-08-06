@@ -306,7 +306,7 @@ class ConfirmOrder extends StatelessWidget {
                         Get.to(() => PaymentWebViewPage(
                             paymentLink: paymentLink,
                             orderData: data,
-                            item: order));
+                            item: order, ));
                       }
                       
                     },

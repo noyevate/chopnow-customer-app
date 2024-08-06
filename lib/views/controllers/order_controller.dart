@@ -5,8 +5,6 @@ import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/size.dart';
 import 'package:chopnow_new_customer_app/views/models/api_error.dart';
 import 'package:chopnow_new_customer_app/views/models/order_request.dart';
-import 'package:chopnow_new_customer_app/views/models/order_response_model.dart';
-import 'package:chopnow_new_customer_app/views/order/subwidget/paymebt_webview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -25,7 +23,7 @@ class OrderController extends GetxController{
   }
 
 
-  void addToOrder(String data, OrderRequest item ) async{
+   Future<void> addToOrder(String data, OrderRequest item ) async{
     setLoading = true;
     String accessToken = box.read("token");
 
@@ -46,6 +44,7 @@ class OrderController extends GetxController{
             icon: const Icon(Ionicons.fast_food_outline));
 
           // Get.to(() => const PaymentPage());
+          
       } else {
         var error = apiErrorFromJson(response.body);
         Get.snackbar("Creating Order Unsuccessful", error.message,
@@ -60,6 +59,7 @@ class OrderController extends GetxController{
       debugPrint(e.toString());
     } finally {
       setLoading = false;
+      
     }
   }
 

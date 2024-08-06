@@ -94,8 +94,8 @@ class CheckoutPage extends HookWidget {
     }
 
     final box = GetStorage();
-    final first_name = box.read("first_name");
-    final last_name = box.read("first_name");
+    final firstName = box.read("first_name");
+    final lastName = box.read("first_name");
     final phone = box.read("phone");
 
     return Scaffold(
@@ -304,7 +304,7 @@ class CheckoutPage extends HookWidget {
                   ),
                   SizedBox(height: 30.h),
                   DeliveryInformationWidget(
-                      firstName: first_name, lastName: last_name, phone: phone),
+                      firstName: firstName, lastName: lastName, phone: phone),
                   SizedBox(height: 30.h),
                   Divider(
                     thickness: 20.h,

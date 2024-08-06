@@ -1,14 +1,10 @@
-import 'dart:convert';
-
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/controllers/checkout_controller.dart';
 import 'package:chopnow_new_customer_app/views/controllers/order_controller.dart';
 import 'package:chopnow_new_customer_app/views/enty_point.dart';
-import 'package:chopnow_new_customer_app/views/food/food_page.dart';
 import 'package:chopnow_new_customer_app/views/models/order_request.dart';
 import 'package:chopnow_new_customer_app/views/order/subwidget/completed_payment.dart';
-import 'package:chopnow_new_customer_app/views/order/widget/confirm_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,7 +14,7 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 class PaymentWebViewPage extends StatefulWidget {
-  const PaymentWebViewPage({super.key, required this.paymentLink, required this.orderData, required this.item, });
+  const PaymentWebViewPage({super.key, required this.paymentLink, required this.orderData, required this.item,});
   final String paymentLink;
   final String orderData;
   final OrderRequest item;
@@ -64,7 +60,7 @@ class _PaymentWebViewPageState extends State<PaymentWebViewPage> {
               checkoutController.fullname.text = "";
               checkoutController.phone.text = "";
               
-              Get.to(() => const CompletedPayment(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 800));
+              Get.off(() => const CompletedPayment(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 800));
 
             } else if (url.contains('cancel')) {
               Get.to(() => const MainScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 800));
