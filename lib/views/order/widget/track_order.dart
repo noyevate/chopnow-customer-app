@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chopnow_new_customer_app/views/common/color_extension.dart';
 import 'package:chopnow_new_customer_app/views/common/reusable_text_widget.dart';
 import 'package:chopnow_new_customer_app/views/common/size.dart';
@@ -14,6 +13,10 @@ import 'package:get/get.dart';
 import 'package:heroicons_flutter/heroicons_flutter.dart';
 import 'package:intl/intl.dart';
 
+import '../order_tracking_widgets/subwidget/note_to_vendors.dart';
+import '../order_tracking_widgets/subwidget/order_id_and_time.dart';
+import '../order_tracking_widgets/subwidget/textn_price_widget.dart';
+
 String formatDate(String dateStr) {
   DateTime dateTime = DateTime.parse(dateStr).toLocal();
   DateFormat outputFormat = DateFormat('EEE, d MMM yyyy, h:mm a', 'en_US');
@@ -26,8 +29,6 @@ String hourTime(String dateStr) {
   return outputFormat.format(dateTime);
 }
 
-const String createdAt = "2024-08-03T21:13:49.506Z";
-
 class ProcessingOrder extends HookWidget {
   const ProcessingOrder({super.key, required this.order});
 
@@ -35,8 +36,7 @@ class ProcessingOrder extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(formatDate(createdAt));
-     final restaurant = useState<SingleRestaurantModel?>(null);
+    final restaurant = useState<SingleRestaurantModel?>(null);
     return Container(
       // padding: EdgeInsets.only(left: 30.w, right: 30.w),
       height: height,
@@ -225,62 +225,14 @@ class ProcessingOrder extends HookWidget {
                   SizedBox(
                     height: 30.h,
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Row(
-                  //       children: [
-                  //         Container(
-                  //           height: 70.h,
-                  //           width: 70.w,
-                  //           color: Tcolor.White,
-                  //           child: ClipRRect(
-                  //               borderRadius: BorderRadius.all(
-                  //                 Radius.circular(100.r),
-                  //               ),
-                  //               child: Image.asset("assets/img/res_logo_1.png")
-                  //               // CachedNetworkImage(
-                  //               //   imageUrl: restaurant.logoUrl,
-                  //               //   fit: BoxFit.contain,
-                  //               // ),
-                  //               ),
-                  //         ),
-                  //         SizedBox(
-                  //           width: 20.w,
-                  //         ),
-                  //         ReuseableText(
-                  //           title: "Iya Kamo",
-                  //           style: TextStyle(
-                  //               fontSize: 32.sp,
-                  //               fontWeight: FontWeight.w500,
-                  //               color: Tcolor.Text),
-                  //         )
-                  //       ],
-                  //     ),
-                  //     Container(
-                  //       height: 64.h,
-                  //       width: 64.h,
-                  //       decoration: BoxDecoration(
-                  //           borderRadius: BorderRadius.circular(32.h),
-                  //           border: Border.all(
-                  //               color: Tcolor.BORDER_Light), // Updated radius
-                  //           color: Tcolor.White),
-                  //       child: GestureDetector(
-                  //         onTap: () {},
-                  //         child: Icon(
-                  //           HeroiconsSolid.phone,
-                  //           color: Tcolor.Text,
-                  //           size: 32.sp,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  RestaurantLogoCall(order: order,  onRestaurantFetched: (fetchedRestaurant) {
-                        WidgetsBinding.instance.addPostFrameCallback((__) {
-                          restaurant.value = fetchedRestaurant;
-                        });
-                      },),
+                  RestaurantLogoCall(
+                    order: order,
+                    onRestaurantFetched: (fetchedRestaurant) {
+                      WidgetsBinding.instance.addPostFrameCallback((__) {
+                        restaurant.value = fetchedRestaurant;
+                      });
+                    },
+                  ),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -344,71 +296,197 @@ class ProcessingOrder extends HookWidget {
             Container(
               color: Tcolor.White,
               padding: EdgeInsets.only(left: 30.w, right: 30.w),
+              child: NoteToVendors(
+                title1: order.orderItems[0].instruction.isEmpty
+                    ? "no note to Restaurant.."
+                    : order.orderItems[0].instruction,
+                title2:
+                    order.notes.isEmpty ? "no note to Rider.." : order.notes,
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Container(
+              color: Tcolor.White,
+              padding: EdgeInsets.only(left: 30.w, right: 30.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 30.h,
-                  ),
-                  ReuseableText(
-                    title: "Note to store",
-                    style: TextStyle(
-                        fontSize: 28.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Tcolor.TEXT_Label),
-                  ),
-                  SizedBox(
-                    height: 15.w,
-                  ),
-                  ReuseableText(
-                    title: "Add more stew to the rice",
-                    style: TextStyle(
-                        fontSize: 32.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Tcolor.TEXT_Body),
-                  ),
-                  SizedBox(
                     height: 20.h,
                   ),
-                  Divider(
-                    color: Tcolor.BORDER_Light,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      OrderIdAndTime(
+                        title1: "Order ID: ",
+                        title2: order.id,
+                      ),
+                      OrderIdAndTime(
+                        fontWeight: FontWeight.w400,
+                          title1: "Order time: ",
+                          title2: hourTime(order.createdAt.toString()))
+                    ],
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: 40.h,
                   ),
                   ReuseableText(
-                    title: "Note to rider",
+                    title: "ORDER DETAILS",
                     style: TextStyle(
-                        fontSize: 28.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Tcolor.TEXT_Label),
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Tcolor.Text),
                   ),
-                  SizedBox(
-                    height: 15.h,
+                  for (int i = 0; i < order.orderItems[0].additives.length; i++)
+                    Container(
+                      key: ValueKey(i),
+                      // padding: EdgeInsets.symmetric(horizontal: 30.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 40.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ReuseableText(
+                                title: "Pack ${i + 1}",
+                                style: TextStyle(
+                                  fontSize: 28.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Tcolor.TEXT_Body,
+                                ),
+                              ),
+                              ReuseableText(
+                                title: order.orderTotal.toString(),
+                                style: TextStyle(
+                                  fontSize: 28.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Tcolor.TEXT_Body,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10.w,
+                          ),
+                          ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: order.orderItems.length,
+                              itemBuilder: (context, index) {
+                                final orderItem = order.orderItems[index];
+                                return Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        ReuseableText(
+                                          title: order.orderItems[0]
+                                              .additives[0].foodTitle,
+                                          style: TextStyle(
+                                            fontSize: 28.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: Tcolor.TEXT_Body,
+                                          ),
+                                        ),
+                                        ReuseableText(
+                                          title:
+                                              "x${order.orderItems[0].additives[0].foodCount}",
+                                          style: TextStyle(
+                                            fontSize: 28.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: Tcolor.TEXT_Body,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10.w,
+                                    ),
+                                    ListView.builder(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: orderItem.additives.length,
+                                        itemBuilder: (context, additiveIndex) {
+                                          final additive = orderItem
+                                              .additives[additiveIndex];
+                                          return Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10.h),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    ReuseableText(
+                                                      title: additive.name,
+                                                      style: TextStyle(
+                                                        fontSize: 28.sp,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Tcolor.TEXT_Body,
+                                                      ),
+                                                    ),
+                                                    ReuseableText(
+                                                      title:
+                                                          "x${additive.quantity}",
+                                                      style: TextStyle(
+                                                        fontSize: 28.sp,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Tcolor.TEXT_Body,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                  ],
+                                );
+                              }),
+                          Divider(
+                            thickness: 2,
+                            color: Tcolor.BACKGROUND_Regaular,
+                          ),
+                          // SizedBox(height: 20.h),
+                        ],
+                      ),
+                    ),
+                  TextnPriceWidget(
+                    title: 'Subtotal',
+                    title1: "${order.orderTotal}",
                   ),
-                  ReuseableText(
-                    title: "Drop it by the door",
-                    style: TextStyle(
-                        fontSize: 32.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Tcolor.TEXT_Body),
+                  SizedBox(height: 30.h),
+                  TextnPriceWidget(
+                    title: 'Service fee',
+                    title1: "${((order.orderTotal) * 0.12).round()}",
                   ),
-                  SizedBox(
-                    height: 20.h,
+                  SizedBox(height: 30.h),
+                  TextnPriceWidget(
+                    title: 'Delivery Fee',
+                    title1: "${order.deliveryFee}",
                   ),
+                  SizedBox(height: 30.h),
+                  TextnPriceWidget(
+                    title: 'Total',
+                    title1: "${order.grandTotal}",
+                    fontWeight: FontWeight.w500,
+                    fontWeight2: FontWeight.w500,
+                    fontSize1: 32.sp,
+                    fontSize: 32.sp,
+                  ),
+                  SizedBox(height: 30.h),
                 ],
               ),
-            ),
-
-            SizedBox(
-              height: 20.h,
-            ),
-
-            // Container(
-            //   color: Tcolor.White,
-            //   padding: EdgeInsets.only(left: 30.w, right: 30.w),
-            //   child: ,
-            // )
+            )
           ],
         ),
       ),

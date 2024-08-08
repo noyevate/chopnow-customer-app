@@ -580,7 +580,7 @@ class _FoodPageState extends State<FoodPage> {
                             )
                             .toList(),
                       );
-                      print(cartRequest.totalPrice);
+                      print("cart tp:${cartRequest.totalPrice}, ${controller.totalPrice}");
 
                       String cartRequest1 = cart.cartRequestToJson(cartRequest);
 

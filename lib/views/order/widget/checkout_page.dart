@@ -382,11 +382,11 @@ class CheckoutPage extends HookWidget {
                               name: item.name,
                               price: item.price,
                               quantity: item.quantity,
-                              packCount: item.packCount),
+                              packCount: packs.value.length),
                         )
-                        .toList(),
+                        .toList(), numberOfPack: packs.value.length,
                   );
-                  print(restaurant.value);
+                  print("pack lenght: ${packs.value.length}");
                   Get.to(
                       () => ConfirmOrder(
                             foodTitle: selectedItems[0].foodTitle,

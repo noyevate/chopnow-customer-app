@@ -12,6 +12,7 @@ import 'package:chopnow_new_customer_app/views/models/food_model.dart';
 
 import 'package:chopnow_new_customer_app/views/models/order_request.dart';
 import 'package:chopnow_new_customer_app/views/models/single_restaurant_model.dart';
+import 'package:chopnow_new_customer_app/views/order/order_tracking_widgets/processing_order.dart';
 import 'package:chopnow_new_customer_app/views/order/subwidget/paymebt_webview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -266,7 +267,10 @@ class ConfirmOrder extends StatelessWidget {
                     height: 20.h,
                   ),
                   CustomButton(
+                    
                     onTap: () async {
+                      Get.to(() =>  TrackingProcessingOrder());
+                      print(item.additives);
                       final grandTotal = estimatedDeliveryFee +
                           totalPrice +
                           (totalPrice * 0.12).round();
@@ -296,18 +300,19 @@ class ConfirmOrder extends StatelessWidget {
                       );
                       String data = orderRequestToJson(order);
 
-                      final paymentLink = await orderController.makePayment(
-                        amount:
-                            "${estimatedDeliveryFee + totalPrice + (totalPrice * 0.12).round()}",
-                        currency: 'NGN', // or other currency
-                        email: "$email", // replace with actual customer email
-                      );
-                      if (paymentLink != null) {
-                        Get.to(() => PaymentWebViewPage(
-                            paymentLink: paymentLink,
-                            orderData: data,
-                            item: order, ));
-                      }
+                      // final paymentLink = await orderController.makePayment(
+                      //   amount:
+                      //       "${estimatedDeliveryFee + totalPrice + (totalPrice * 0.12).round()}",
+                      //   currency: 'NGN', // or other currency
+                      //   email: "$email", // replace with actual customer email
+                      // );
+                      // if (paymentLink != null) {
+                      //   Get.to(() => PaymentWebViewPage(
+                      //       paymentLink: paymentLink,
+                      //       orderData: data,
+                      //       item: order, ));
+                      // }
+                     
                       
                     },
                     title: "Make payment",

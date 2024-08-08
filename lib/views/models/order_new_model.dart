@@ -112,6 +112,7 @@ class OrderModel {
 
 class OrderItem {
     final String foodId;
+    final int numberOfPack;
     final List<Additive> additives;
     final String instruction;
     final String id;
@@ -120,6 +121,7 @@ class OrderItem {
 
     OrderItem({
         required this.foodId,
+        required this.numberOfPack,
         required this.additives,
         required this.instruction,
         required this.id,
@@ -129,6 +131,7 @@ class OrderItem {
 
     factory OrderItem.fromJson(Map<String, dynamic> json) => OrderItem(
         foodId: json["foodId"],
+        numberOfPack: json["numberOfPack"],
         additives: List<Additive>.from(json["additives"].map((x) => Additive.fromJson(x))),
         instruction: json["instruction"],
         id: json["_id"],
@@ -138,6 +141,7 @@ class OrderItem {
 
     Map<String, dynamic> toJson() => {
         "foodId": foodId,
+        "numberOfPack": numberOfPack,
         "additives": List<dynamic>.from(additives.map((x) => x.toJson())),
         "instruction": instruction,
         "_id": id,
